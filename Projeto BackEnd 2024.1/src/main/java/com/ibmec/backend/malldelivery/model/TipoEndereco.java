@@ -1,8 +1,8 @@
 package com.ibmec.backend.malldelivery.model;
 
 public enum TipoEndereco {
-    Residencial(1),
-    Comercial(2);
+    RESIDENCIAL(1),
+    COMERCIAL(2);
 
     private final int id;
 
