@@ -202,19 +202,23 @@ public class Loja {
         response.setDtAtivacao(loja.getDtAtivacao());
         response.setUserNameAtivacao(loja.getUserNameAtivacao());
 
-        response.setNomeBanco(loja.getDadosBancarios().getFirst().getNomeBanco());
-        response.setAgencia(loja.getDadosBancarios().getFirst().getAgencia());
-        response.setConta(loja.getDadosBancarios().getFirst().getConta());
-        response.setCodigoBanco(loja.getDadosBancarios().getFirst().getCodigoBanco());
-        response.setTipoConta(loja.getDadosBancarios().getFirst().getTipoConta().toString());
+        if (loja.getDadosBancarios().size() > 0){
+            response.setNomeBanco(loja.getDadosBancarios().getFirst().getNomeBanco());
+            response.setAgencia(loja.getDadosBancarios().getFirst().getAgencia());
+            response.setConta(loja.getDadosBancarios().getFirst().getConta());
+            response.setCodigoBanco(loja.getDadosBancarios().getFirst().getCodigoBanco());
+            response.setTipoConta(loja.getDadosBancarios().getFirst().getTipoConta().toString());
+        }
 
-        response.setLogradouro(loja.getEnderecos().getFirst().getLogradouro());
-        response.setBairro(loja.getEnderecos().getFirst().getBairro());
-        response.setCep(loja.getEnderecos().getFirst().getCep());
-        response.setCidade(loja.getEnderecos().getFirst().getCidade());
-        response.setComplemento(loja.getEnderecos().getFirst().getComplemento());
-        response.setEstado(loja.getEnderecos().getFirst().getEstado());
-        response.setPais(loja.getEnderecos().getFirst().getPais());
+        if (loja.getEnderecos().size() > 0){
+            response.setLogradouro(loja.getEnderecos().getFirst().getLogradouro());
+            response.setBairro(loja.getEnderecos().getFirst().getBairro());
+            response.setCep(loja.getEnderecos().getFirst().getCep());
+            response.setCidade(loja.getEnderecos().getFirst().getCidade());
+            response.setComplemento(loja.getEnderecos().getFirst().getComplemento());
+            response.setEstado(loja.getEnderecos().getFirst().getEstado());
+            response.setPais(loja.getEnderecos().getFirst().getPais());
+        }
 
         return response;
 
