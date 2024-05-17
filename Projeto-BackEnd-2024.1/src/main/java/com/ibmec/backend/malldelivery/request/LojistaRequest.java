@@ -23,7 +23,7 @@ public class LojistaRequest {
     private String telefone;
 
     @NotBlank(message = "O campo cnpj é obrigatório")
-    @Pattern(regexp = "^[0-9]{2}\\.[0-9]{3}\\.[0-9]{3}\\/[0-9]{4}-[0-9]{2}$", message = "O campo cnpj deve seguir o padrão 99.999.999/9999-99")
+    @Pattern(regexp = "^[0-9]{2}\\.[0-9]{3}\\.[0-9]{3}/[0-9]{4}-[0-9]{2}$", message = "O campo cnpj deve seguir o padrão 99.999.999/9999-99")
     private String cnpj;
 
     @NotBlank(message = "O campo banner é obrigatório")
