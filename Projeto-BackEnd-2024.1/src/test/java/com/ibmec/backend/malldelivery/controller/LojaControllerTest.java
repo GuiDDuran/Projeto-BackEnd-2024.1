@@ -1,11 +1,10 @@
 package com.ibmec.backend.malldelivery.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ibmec.backend.malldelivery.contoller.LojistaController;
+import com.ibmec.backend.malldelivery.contoller.LojaController;
 import com.ibmec.backend.malldelivery.model.DadoBancario;
 import com.ibmec.backend.malldelivery.model.Endereco;
 import com.ibmec.backend.malldelivery.model.Loja;
-import com.ibmec.backend.malldelivery.request.LojistaRequest;
 import com.ibmec.backend.malldelivery.service.LojaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,18 +17,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
-import java.util.Optional;
-
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.web.servlet.function.RequestPredicates.contentType;
 
 import static org.hamcrest.Matchers.*;
 
 @AutoConfigureMockMvc
-@WebMvcTest(controllers = LojistaController.class)
-public class LojistaControllerTest {
+@WebMvcTest(controllers = LojaController.class)
+public class LojaControllerTest {
     @MockBean
     private LojaService lojaService;
 

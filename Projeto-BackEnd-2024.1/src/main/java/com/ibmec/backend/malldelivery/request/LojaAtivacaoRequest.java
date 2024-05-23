@@ -3,10 +3,9 @@ package com.ibmec.backend.malldelivery.request;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NonNull;
 
 @Data
-public class LojistaAtivacaoRequest {
+public class LojaAtivacaoRequest {
     @NotNull(message = "Habilitação não fornecida")
     private Boolean enabled;
 

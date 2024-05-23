@@ -7,9 +7,9 @@ import com.ibmec.backend.malldelivery.model.Loja;
 import com.ibmec.backend.malldelivery.repository.DadoBancarioRepository;
 import com.ibmec.backend.malldelivery.repository.EnderecoRepository;
 import com.ibmec.backend.malldelivery.repository.LojaRepository;
-import com.ibmec.backend.malldelivery.request.LojistaAtivacaoRequest;
-import com.ibmec.backend.malldelivery.request.LojistaRequest;
-import com.ibmec.backend.malldelivery.response.LojistaResponse;
+import com.ibmec.backend.malldelivery.request.LojaAtivacaoRequest;
+import com.ibmec.backend.malldelivery.request.LojaRequest;
+import com.ibmec.backend.malldelivery.response.LojaResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class LojaService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
-    public LojistaResponse criarLoja(LojistaRequest request) throws Exception{
+    public LojaResponse criarLoja(LojaRequest request) throws Exception{
         Loja loja = Loja.fromRequest(request);
 
         if (this.lojaRepository.findByCnpj(loja.getCnpj()).isEmpty() == false) {
@@ -47,12 +47,12 @@ public class LojaService {
 
         this.lojaRepository.save(loja);
 
-        LojistaResponse response = Loja.toResponse(loja);
+        LojaResponse response = Loja.toResponse(loja);
 
         return response;
     }
 
-    public LojistaResponse obterLojistaPorId(int id) {
+    public LojaResponse obterLojistaPorId(int id) {
         Optional<Loja> optLoja = this.lojaRepository.findById(id);
         if (optLoja.isEmpty()) {
             return null;
@@ -60,7 +60,7 @@ public class LojaService {
         return Loja.toResponse(optLoja.get());
     }
 
-    public LojistaResponse obterLojistaPorCnpj(String cnpj) {
+    public LojaResponse obterLojistaPorCnpj(String cnpj) {
         Optional<Loja> optLoja = this.lojaRepository.findByCnpj(cnpj);
         if (optLoja.isEmpty()) {
             return null;
@@ -68,7 +68,7 @@ public class LojaService {
         return Loja.toResponse(optLoja.get());
     }
 
-    public LojistaResponse ativarLojista(int id, LojistaAtivacaoRequest request) throws LojaException{
+    public LojaResponse ativarLojista(int id, LojaAtivacaoRequest request) throws LojaException{
         Optional<Loja> optLoja = this.lojaRepository.findById(id);
         if (optLoja.isEmpty()) {
             throw new LojaException("id", "Identificador da loja não encontrado");
@@ -81,7 +81,7 @@ public class LojaService {
         return Loja.toResponse(loja);
     }
 
-    public LojistaResponse atualizarDadosLojista(int id, LojistaRequest request) throws LojaException{
+    public LojaResponse atualizarDadosLojista(int id, LojaRequest request) throws LojaException{
         Optional<Loja> optLoja = this.lojaRepository.findById(id);
         if (optLoja.isEmpty()) {
             throw new LojaException("id", "Identificador da loja não encontrado");

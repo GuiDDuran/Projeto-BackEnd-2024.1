@@ -1,8 +1,8 @@
 package com.ibmec.backend.malldelivery.model;
 
 import com.ibmec.backend.malldelivery.exception.LojaException;
-import com.ibmec.backend.malldelivery.request.LojistaRequest;
-import com.ibmec.backend.malldelivery.response.LojistaResponse;
+import com.ibmec.backend.malldelivery.request.LojaRequest;
+import com.ibmec.backend.malldelivery.response.LojaResponse;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -70,7 +70,7 @@ public class Loja {
     @Column
     private String userNameAtivacao;
 
-    public static Loja fromRequest(LojistaRequest request) throws Exception {
+    public static Loja fromRequest(LojaRequest request) throws Exception {
         Loja loja = new Loja();
         loja.setNome(request.getNome());
         loja.setEmail(request.getEmail());
@@ -121,12 +121,13 @@ public class Loja {
         endereco.setCidade(request.getCidade());
         endereco.setEstado(request.getEstado());
         endereco.setPais(request.getPais());
+        endereco.setDescricao(request.getDescricao());
         loja.getEnderecos().add(endereco);
 
         return loja;
     }
 
-    public static Loja fromRequest(Loja loja, LojistaRequest request) throws LojaException {
+    public static Loja fromRequest(Loja loja, LojaRequest request) throws LojaException {
 
         loja.setNome(request.getNome());
         loja.setEmail(request.getEmail());
@@ -178,12 +179,13 @@ public class Loja {
         endereco.setCidade(request.getCidade());
         endereco.setEstado(request.getEstado());
         endereco.setPais(request.getPais());
+        endereco.setDescricao(request.getDescricao());
 
         return loja;
     }
 
-    public static LojistaResponse toResponse(Loja loja){
-        LojistaResponse response = new LojistaResponse();
+    public static LojaResponse toResponse(Loja loja){
+        LojaResponse response = new LojaResponse();
 
         response.setNome(loja.getNome());
         response.setEmail(loja.getEmail());
@@ -218,6 +220,7 @@ public class Loja {
             response.setComplemento(loja.getEnderecos().getFirst().getComplemento());
             response.setEstado(loja.getEnderecos().getFirst().getEstado());
             response.setPais(loja.getEnderecos().getFirst().getPais());
+            response.setDescricao(loja.getEnderecos().getFirst().getDescricao());
         }
 
         return response;

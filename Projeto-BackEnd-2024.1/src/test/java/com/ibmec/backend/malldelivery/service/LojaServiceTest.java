@@ -3,9 +3,9 @@ package com.ibmec.backend.malldelivery.service;
 import com.ibmec.backend.malldelivery.exception.LojaException;
 import com.ibmec.backend.malldelivery.model.Loja;
 import com.ibmec.backend.malldelivery.repository.LojaRepository;
-import com.ibmec.backend.malldelivery.request.LojistaAtivacaoRequest;
-import com.ibmec.backend.malldelivery.request.LojistaRequest;
-import com.ibmec.backend.malldelivery.response.LojistaResponse;
+import com.ibmec.backend.malldelivery.request.LojaAtivacaoRequest;
+import com.ibmec.backend.malldelivery.request.LojaRequest;
+import com.ibmec.backend.malldelivery.response.LojaResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,11 +26,11 @@ public class LojaServiceTest {
     @MockBean
     private LojaRepository lojaRepository;
 
-    private LojistaRequest request;
+    private LojaRequest request;
 
     @BeforeEach
     public void setUp() {
-        request = new LojistaRequest();
+        request = new LojaRequest();
         request.setNome("Loja 1");
         request.setCnpj("99.999.999/9999-99");
         request.setTelefone("(99)99999-9999");
@@ -63,7 +63,7 @@ public class LojaServiceTest {
 
         given(this.lojaRepository.findByCnpj(request.getCnpj())).willReturn(Optional.empty());
 
-        LojistaResponse response = this.service.criarLoja(request);
+        LojaResponse response = this.service.criarLoja(request);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(response.getNome(), request.getNome());
@@ -77,7 +77,7 @@ public class LojaServiceTest {
         given(this.lojaRepository.findByCnpj(request.getCnpj())).willReturn(Optional.of(new Loja()));
 
         Assertions.assertThrowsExactly(LojaException.class, () -> {
-            LojistaResponse response = this.service.criarLoja(this.request);
+            LojaResponse response = this.service.criarLoja(this.request);
         });
 
     }
@@ -87,7 +87,7 @@ public class LojaServiceTest {
         int id = 1;
         given(this.lojaRepository.findById(id)).willReturn(Optional.of(new Loja()));
 
-        LojistaResponse response = this.service.obterLojistaPorId(id);
+        LojaResponse response = this.service.obterLojistaPorId(id);
 
         Assertions.assertNotNull(response);
     }
@@ -97,7 +97,7 @@ public class LojaServiceTest {
         int id = 1;
         given(this.lojaRepository.findById(id)).willReturn(Optional.empty());
 
-        LojistaResponse response = this.service.obterLojistaPorId(id);
+        LojaResponse response = this.service.obterLojistaPorId(id);
 
         Assertions.assertNull(response);
     }
@@ -107,11 +107,11 @@ public class LojaServiceTest {
         int id = 1;
         given(this.lojaRepository.findById(id)).willReturn(Optional.of(new Loja()));
 
-        LojistaAtivacaoRequest request = new LojistaAtivacaoRequest();
+        LojaAtivacaoRequest request = new LojaAtivacaoRequest();
         request.setEnabled(true);
         request.setUserNameAtivacao("User");
 
-        LojistaResponse response = this.service.ativarLojista(id, request);
+        LojaResponse response = this.service.ativarLojista(id, request);
 
         Assertions.assertNotNull(response);
         Assertions.assertTrue(response.getEnabled());
@@ -125,10 +125,10 @@ public class LojaServiceTest {
         given(this.lojaRepository.findById(id)).willReturn(Optional.empty());
 
         Assertions.assertThrowsExactly(LojaException.class, () -> {
-            LojistaAtivacaoRequest request = new LojistaAtivacaoRequest();
+            LojaAtivacaoRequest request = new LojaAtivacaoRequest();
             request.setEnabled(true);
             request.setUserNameAtivacao("User");
-            LojistaResponse response = this.service.ativarLojista(id, request);
+            LojaResponse response = this.service.ativarLojista(id, request);
         });
     }
 }

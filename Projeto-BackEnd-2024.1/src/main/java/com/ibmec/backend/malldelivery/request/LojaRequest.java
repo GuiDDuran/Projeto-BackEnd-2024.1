@@ -1,16 +1,11 @@
 package com.ibmec.backend.malldelivery.request;
 
-import com.ibmec.backend.malldelivery.model.TipoConta;
-import com.ibmec.backend.malldelivery.model.TipoEndereco;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
-public class LojistaRequest {
+public class LojaRequest {
     @NotBlank(message = "O campo nome é obrigatório")
     private String nome;
 
@@ -81,7 +76,6 @@ public class LojistaRequest {
 
     @NotBlank(message = "O campo complemento é obrigatório")
     private String complemento;
-
 
     private String descricao;
 
