@@ -28,10 +28,6 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-<<<<<<< HEAD
       run: mvn compile --file ./Projeto BackEnd 2024.1/pom.xml
     - name: Tests with Maven
       run: mvn test --file ./Projeto BackEnd 2024.1/pom.xml
-=======
-      run: mvn compile --file ./Projeto-BackEnd-2024.1/pom.xml
->>>>>>> c60db3a19ebb6951a615575de48be65d9e93e165
