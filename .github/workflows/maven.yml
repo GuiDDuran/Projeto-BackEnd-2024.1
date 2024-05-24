@@ -47,4 +47,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=GuiDDuran_Projeto-BackEnd-2024.1 --file ./Projeto-BackEnd-2024.1/pom.xml
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=GuiDDuran_Projeto-BackEnd-2024.1 --file ./Projeto-BackEnd-2024.1/pom.xml -Dsonar.coverage.jacoco.xmlReportPaths=../app-it/target/site/jacoco-aggregate/jacoco.xml
