@@ -9,13 +9,18 @@ import com.ibmec.backend.malldelivery.response.LojaResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 public class LojaServiceTest {
@@ -56,6 +61,12 @@ public class LojaServiceTest {
         request.setPais("Pais 1");
         request.setTipoEndereco("Residencial");
         request.setDescricao("Descricao 1");
+
+        request.setNomePessoaFisica("Guilherme");
+        request.setSobrenomePessoaFisica("Gea");
+        request.setCpfPessoaFisica("999.999.999-99");
+        request.setTelefonePessoaFisica("(99)99999-9999");
+        request.setEmailPessoaFisica("guilherme.d.gea@gmail.com");
     }
 
     @Test
@@ -65,10 +76,10 @@ public class LojaServiceTest {
 
         LojaResponse response = this.service.criarLoja(request);
 
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(response.getNome(), request.getNome());
+        assertNotNull(response);
+        assertEquals(response.getNome(), request.getNome());
         Assertions.assertFalse(response.getEnabled());
-        Assertions.assertNotNull(response.getDataCadastro());
+        assertNotNull(response.getDataCadastro());
     }
 
     @Test
@@ -88,7 +99,7 @@ public class LojaServiceTest {
 
         LojaResponse response = this.service.obterLojistaPorId(id);
 
-        Assertions.assertNotNull(response);
+        assertNotNull(response);
     }
 
     @Test
@@ -112,10 +123,10 @@ public class LojaServiceTest {
 
         LojaResponse response = this.service.ativarLojista(id, request);
 
-        Assertions.assertNotNull(response);
+        assertNotNull(response);
         Assertions.assertTrue(response.getEnabled());
         Assertions.assertSame(response.getUserNameAtivacao(), "User");
-        Assertions.assertNotNull(response.getDtAtivacao());
+        assertNotNull(response.getDtAtivacao());
     }
 
     @Test
@@ -128,6 +139,72 @@ public class LojaServiceTest {
             request.setEnabled(true);
             request.setUserNameAtivacao("User");
             LojaResponse response = this.service.ativarLojista(id, request);
+        });
+    }
+
+    @Test
+    public void DeveDesativarLojistaComSucesso() throws Exception {
+        int id = 1;
+        given(this.lojaRepository.findById(id)).willReturn(Optional.of(new Loja()));
+
+        LojaResponse response = this.service.desativarLojista(id);
+
+        assertNotNull(response);
+        Assertions.assertFalse(response.getEnabled());
+        Assertions.assertNull(response.getUserNameAtivacao());
+        Assertions.assertNull(response.getDtAtivacao());
+    }
+
+    @Test
+    public void NaoDeveDesativarLojistaQuandoNaoEncontrarNaBase() throws Exception {
+        int id = 1;
+        given(this.lojaRepository.findById(id)).willReturn(Optional.empty());
+
+        Assertions.assertThrowsExactly(LojaException.class, () -> {
+            LojaResponse response = this.service.desativarLojista(id);
+        });
+    }
+
+    @Test
+    public void DeveAtualizarDadosLojistaComSucesso() throws Exception {
+        int id = 1;
+        given(this.lojaRepository.findById(id)).willReturn(Optional.of(new Loja()));
+
+        LojaResponse response = this.service.atualizarDadosLojista(id, request);
+
+        assertNotNull(response);
+        assertEquals(response.getNome(), request.getNome());
+    }
+
+    @Test
+    public void NaoDeveAtualizarDadosLojistaQuandoNaoEncontrarNaBase() throws Exception {
+        int id = 1;
+        given(this.lojaRepository.findById(id)).willReturn(Optional.empty());
+
+        Assertions.assertThrowsExactly(LojaException.class, () -> {
+            LojaResponse response = this.service.atualizarDadosLojista(id, request);
+        });
+    }
+
+    @Test
+    public void DeveDeletarLojaComSucesso() throws Exception {
+        int id = 1;
+        given(this.lojaRepository.findById(id)).willReturn(Optional.of(new Loja()));
+
+        LojaResponse response = this.service.deletarLoja(id);
+
+        assertNotNull(response);
+        verify(this.lojaRepository).deleteById(id);
+    }
+
+    @Test
+    public void NaoDeveDeletarLojaQuandoNaoEncontrarNaBase() throws Exception {
+        int id = 1;
+        given(this.lojaRepository.findById(id)).willReturn(Optional.empty());
+
+
+        Assertions.assertThrowsExactly(LojaException.class, () -> {
+            LojaResponse response = this.service.deletarLoja(id);
         });
     }
 }

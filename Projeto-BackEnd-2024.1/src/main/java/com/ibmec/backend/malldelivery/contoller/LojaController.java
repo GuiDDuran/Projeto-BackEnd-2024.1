@@ -18,7 +18,7 @@ public class LojaController {
     @Autowired
     private LojaService lojaService;
     @PostMapping
-    public ResponseEntity<LojaResponse> criarLoja(@RequestBody @Valid LojaRequest request) throws Exception {
+    public ResponseEntity<LojaResponse> criarloja(@RequestBody @Valid LojaRequest request) throws Exception {
 
         LojaResponse response = this.lojaService.criarLoja(request);
 
@@ -35,8 +35,8 @@ public class LojaController {
 
     }
 
-    @GetMapping("busca/{cnpj}")
-    public ResponseEntity<LojaResponse> obterLojistaPorCnpj(@PathVariable String cnpj) {
+    @GetMapping("/busca")
+    public ResponseEntity<LojaResponse> obterLojistaPorCnpj(@RequestParam String cnpj) {
         LojaResponse response = this.lojaService.obterLojistaPorCnpj(cnpj);
         if (response == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -50,9 +50,24 @@ public class LojaController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PatchMapping("desabilitar/{id}")
+    public ResponseEntity<LojaResponse> desativarLojista(@PathVariable int id) throws LojaException {
+        LojaResponse response = this.lojaService.desativarLojista(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PutMapping("{id}")
     public ResponseEntity<LojaResponse> atualizarDadosLojista(@PathVariable int id, @RequestBody @Valid LojaRequest request) throws LojaException{
         LojaResponse response = this.lojaService.atualizarDadosLojista(id, request);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<LojaResponse> deletarLoja(@PathVariable int id) throws LojaException{
+        LojaResponse response = this.lojaService.deletarLoja(id);
+        if (response == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

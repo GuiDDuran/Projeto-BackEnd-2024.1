@@ -18,7 +18,7 @@ public class LojaRequest {
     private String telefone;
 
     @NotBlank(message = "O campo cnpj é obrigatório")
-    @Pattern(regexp = "^[0-9]{2}\\.[0-9]{3}\\.[0-9]{3}/[0-9]{4}-[0-9]{2}$", message = "O campo cnpj deve seguir o padrão 99.999.999/9999-99")
+    @Pattern(regexp = "^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}-\\d{2}$", message = "O campo cnpj deve seguir o padrão 99.999.999/9999-99")
     private String cnpj;
 
     @NotBlank(message = "O campo banner é obrigatório")
@@ -81,4 +81,22 @@ public class LojaRequest {
 
     @NotBlank(message = "O campo tipo de endereço é obrigatório")
     private String tipoEndereco;
+
+    @NotBlank(message = "O campo nome da pessoa física é obrigatório")
+    private String nomePessoaFisica;
+
+    @NotBlank(message = "O campo sobrenome da pessoa física é obrigatório")
+    private String sobrenomePessoaFisica;
+
+    @NotBlank(message = "O campo email da pessoa física é obrigatório")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "O campo email da pessoa física deve ser um email válido")
+    private String emailPessoaFisica;
+
+    @NotBlank(message = "O campo telefone da pessoa física é obrigatório")
+    @Pattern(regexp = "^\\([0-9]{2}\\)[0-9]{5}-[0-9]{4}$", message = "O campo telefone da pessoa física deve seguir o padrão (99)99999-9999")
+    private String telefonePessoaFisica;
+
+    @NotBlank(message = "O campo cpf da pessoa física é obrigatório")
+    @Pattern(regexp = "^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}$", message = "O campo cpf da pessoa física deve seguir o padrão 999.999.999-99")
+    private String cpfPessoaFisica;
 }

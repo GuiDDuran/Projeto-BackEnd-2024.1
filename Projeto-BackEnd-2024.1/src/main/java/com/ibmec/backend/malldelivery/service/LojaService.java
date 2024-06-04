@@ -4,12 +4,15 @@ import com.ibmec.backend.malldelivery.exception.LojaException;
 import com.ibmec.backend.malldelivery.model.DadoBancario;
 import com.ibmec.backend.malldelivery.model.Endereco;
 import com.ibmec.backend.malldelivery.model.Loja;
+import com.ibmec.backend.malldelivery.model.PessoaFisica;
 import com.ibmec.backend.malldelivery.repository.DadoBancarioRepository;
 import com.ibmec.backend.malldelivery.repository.EnderecoRepository;
 import com.ibmec.backend.malldelivery.repository.LojaRepository;
+import com.ibmec.backend.malldelivery.repository.PessoaFisicaRepository;
 import com.ibmec.backend.malldelivery.request.LojaAtivacaoRequest;
 import com.ibmec.backend.malldelivery.request.LojaRequest;
 import com.ibmec.backend.malldelivery.response.LojaResponse;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,9 @@ public class LojaService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
+    @Autowired
+    private PessoaFisicaRepository pessoaFisicaRepository;
+
     public LojaResponse criarLoja(LojaRequest request) throws Exception{
         Loja loja = Loja.fromRequest(request);
 
@@ -40,6 +46,9 @@ public class LojaService {
 
         DadoBancario dadoBancario = loja.getDadosBancarios().getFirst();
         this.dadoBancarioRepository.save(dadoBancario);
+
+        PessoaFisica pessoaFisica = loja.getPessoasFisicas().getFirst();
+        this.pessoaFisicaRepository.save(pessoaFisica);
 
         loja.setDataCadastro(LocalDateTime.now());
 
@@ -81,6 +90,19 @@ public class LojaService {
         return Loja.toResponse(loja);
     }
 
+    public LojaResponse desativarLojista(int id) throws LojaException{
+        Optional<Loja> optLoja = this.lojaRepository.findById(id);
+        if (optLoja.isEmpty()) {
+            throw new LojaException("id", "Identificador da loja não encontrado");
+        }
+        Loja loja = optLoja.get();
+        loja.setEnabled(Boolean.FALSE);
+        loja.setDtAtivacao(null);
+        loja.setUserNameAtivacao(null);
+        this.lojaRepository.save(loja);
+        return Loja.toResponse(loja);
+    }
+
     public LojaResponse atualizarDadosLojista(int id, LojaRequest request) throws LojaException{
         Optional<Loja> optLoja = this.lojaRepository.findById(id);
         if (optLoja.isEmpty()) {
@@ -94,9 +116,27 @@ public class LojaService {
         DadoBancario dadoBancario = loja.getDadosBancarios().getFirst();
         this.dadoBancarioRepository.save(dadoBancario);
 
+        PessoaFisica pessoaFisica = loja.getPessoasFisicas().getFirst();
+        this.pessoaFisicaRepository.save(pessoaFisica);
+
         this.lojaRepository.save(loja);
 
         return Loja.toResponse(loja);
 
+    }
+
+    public LojaResponse deletarLoja(int id) throws LojaException{
+        Optional<Loja> optLoja = this.lojaRepository.findById(id);
+        if (optLoja.isEmpty()) {
+            throw new LojaException("id", "Identificador da loja não encontrado");
+        }
+
+        Loja loja = optLoja.get();
+        Hibernate.initialize(loja.getEnderecos());
+        Hibernate.initialize(loja.getDadosBancarios());
+        Hibernate.initialize(loja.getPessoasFisicas());
+
+        this.lojaRepository.deleteById(id);
+        return Loja.toResponse(optLoja.get());
     }
 }

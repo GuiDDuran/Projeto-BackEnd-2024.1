@@ -61,6 +61,10 @@ public class Loja {
     @JoinColumn(name = "id_loja", referencedColumnName = "id")
     private List<Endereco> enderecos = new ArrayList<>();
 
+    @OneToMany
+    @JoinColumn(name = "id_loja", referencedColumnName = "id")
+    private List<PessoaFisica> pessoasFisicas = new ArrayList<>();
+
     @Column
     private Boolean Enabled = false;
 
@@ -85,7 +89,6 @@ public class Loja {
         loja.setAbaProdAdd(request.getAbaProdAdd());
 
         DadoBancario dadoBancario = new DadoBancario();
-
         if(request.getTipoConta().equals("CC")){
             dadoBancario.setTipoConta(TipoConta.CONTA_CORRENTE);
         }
@@ -123,6 +126,14 @@ public class Loja {
         endereco.setPais(request.getPais());
         endereco.setDescricao(request.getDescricao());
         loja.getEnderecos().add(endereco);
+
+        PessoaFisica pessoaFisica = new PessoaFisica();
+        pessoaFisica.setNomePessoaFisica(request.getNomePessoaFisica());
+        pessoaFisica.setSobrenomePessoaFisica(request.getSobrenomePessoaFisica());
+        pessoaFisica.setCpfPessoaFisica(request.getCpfPessoaFisica());
+        pessoaFisica.setTelefonePessoaFisica(request.getTelefonePessoaFisica());
+        pessoaFisica.setEmailPessoaFisica(request.getEmailPessoaFisica());
+        loja.getPessoasFisicas().add(pessoaFisica);
 
         return loja;
     }
@@ -169,7 +180,7 @@ public class Loja {
             endereco.setTipoEndereco(TipoEndereco.COMERCIAL);
         }
         else{
-            throw new LojaException("tipoEndereco", "Tipo de endereço inválido");
+            throw new LojaException("tipoEndereco", "Tipo de endereço inválido, valores válidos: Residencial, Comercial");
         }
 
         endereco.setCep(request.getCep());
@@ -180,6 +191,14 @@ public class Loja {
         endereco.setEstado(request.getEstado());
         endereco.setPais(request.getPais());
         endereco.setDescricao(request.getDescricao());
+
+        PessoaFisica pessoaFisica = loja.getPessoasFisicas().getFirst();
+
+        pessoaFisica.setNomePessoaFisica(request.getNomePessoaFisica());
+        pessoaFisica.setSobrenomePessoaFisica(request.getSobrenomePessoaFisica());
+        pessoaFisica.setCpfPessoaFisica(request.getCpfPessoaFisica());
+        pessoaFisica.setTelefonePessoaFisica(request.getTelefonePessoaFisica());
+        pessoaFisica.setEmailPessoaFisica(request.getEmailPessoaFisica());
 
         return loja;
     }
@@ -221,6 +240,15 @@ public class Loja {
             response.setEstado(loja.getEnderecos().getFirst().getEstado());
             response.setPais(loja.getEnderecos().getFirst().getPais());
             response.setDescricao(loja.getEnderecos().getFirst().getDescricao());
+            response.setTipoEndereco(loja.getEnderecos().getFirst().getTipoEndereco().toString());
+        }
+
+        if (loja.getPessoasFisicas().size() > 0){
+            response.setNomePessoaFisica(loja.getPessoasFisicas().getFirst().getNomePessoaFisica());
+            response.setSobrenomePessoaFisica(loja.getPessoasFisicas().getFirst().getSobrenomePessoaFisica());
+            response.setCpfPessoaFisica(loja.getPessoasFisicas().getFirst().getCpfPessoaFisica());
+            response.setTelefonePessoaFisica(loja.getPessoasFisicas().getFirst().getTelefonePessoaFisica());
+            response.setEmailPessoaFisica(loja.getPessoasFisicas().getFirst().getEmailPessoaFisica());
         }
 
         return response;

@@ -32,6 +32,11 @@ public class LojaResponse {
     private String complemento;
     private String descricao;
     private String tipoEndereco;
+    private String nomePessoaFisica;
+    private String sobrenomePessoaFisica;
+    private String emailPessoaFisica;
+    private String telefonePessoaFisica;
+    private String cpfPessoaFisica;
     private LocalDateTime dataCadastro;
     private Boolean enabled = false;
     private LocalDateTime dtAtivacao;
