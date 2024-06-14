@@ -2,10 +2,7 @@ package com.ibmec.backend.malldelivery.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibmec.backend.malldelivery.contoller.LojaController;
-import com.ibmec.backend.malldelivery.model.DadoBancario;
-import com.ibmec.backend.malldelivery.model.Endereco;
-import com.ibmec.backend.malldelivery.model.Loja;
-import com.ibmec.backend.malldelivery.model.PessoaFisica;
+import com.ibmec.backend.malldelivery.model.*;
 import com.ibmec.backend.malldelivery.service.LojaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -61,6 +58,7 @@ public class LojaControllerTest {
         endereco.setEstado("Estado 1");
         endereco.setPais("Pais 1");
         endereco.setDescricao("Descricao 1");
+        endereco.setTipoEndereco(TipoEndereco.RESIDENCIAL);
         loja.getEnderecos().add(endereco);
 
         DadoBancario dadoBancario = new DadoBancario();
@@ -68,6 +66,7 @@ public class LojaControllerTest {
         dadoBancario.setAgencia("9999");
         dadoBancario.setConta("99999-9");
         dadoBancario.setCodigoBanco("999");
+        dadoBancario.setTipoConta(TipoConta.CONTA_CORRENTE);
         loja.getDadosBancarios().add(dadoBancario);
 
         PessoaFisica pessoaFisica = new PessoaFisica();
@@ -139,25 +138,25 @@ public class LojaControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @Test
-    public void deveDesabilitarLojistaComSucesso() throws Exception{
-        int id = 1;
-        given(this.lojaService.desativarLojista(id)).willReturn(Loja.toResponse(this.loja));
-        mvc.perform(MockMvcRequestBuilders.patch("/lojista/desabilitar/" + id)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(this.loja.getId())))
-                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
-    }
+//    @Test
+//    public void deveDesabilitarLojistaComSucesso() throws Exception{
+//        int id = 1;
+//        given(this.lojaService.desativarLojista(id)).willReturn(Loja.toResponse(this.loja));
+//        mvc.perform(MockMvcRequestBuilders.patch("/lojista/desabilitar/" + id)
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id", is(this.loja.getId())))
+//                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
+//    }
 
-    @Test
-    public void naoDeveDesabilitarLojistaRetornandoNotFound() throws Exception{
-        int id = 1;
-        given(this.lojaService.desativarLojista(id)).willReturn(null);
-        mvc.perform(MockMvcRequestBuilders.patch("/lojista/desabilitar/" + id)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    public void naoDeveDesabilitarLojistaRetornandoNotFound() throws Exception{
+//        int id = 1;
+//        given(this.lojaService.desativarLojista(id)).willReturn(null);
+//        mvc.perform(MockMvcRequestBuilders.patch("/lojista/desabilitar/" + id)
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isNotFound());
+//    }
 
     @Test
     public void deveAtualizarDadosLojistaComSucesso() throws Exception{
@@ -207,13 +206,13 @@ public class LojaControllerTest {
                 .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
     }
 
-//    @Test
-//    public void naoDeveCriarLojaRetornandoNotFound() throws Exception{
-//        given(this.lojaService.criarLoja(null)).willReturn(null);
-//        mvc.perform(MockMvcRequestBuilders.post("/lojista")
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isNotFound());
-//    }
+    @Test
+    public void naoDeveCriarLojaRetornandoNotFound() throws Exception{
+        given(this.lojaService.criarLoja(null)).willReturn(null);
+        mvc.perform(MockMvcRequestBuilders.post("/lojista")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
 
 
 }

@@ -142,28 +142,28 @@ public class LojaServiceTest {
         });
     }
 
-    @Test
-    public void DeveDesativarLojistaComSucesso() throws Exception {
-        int id = 1;
-        given(this.lojaRepository.findById(id)).willReturn(Optional.of(new Loja()));
+//    @Test
+//    public void DeveDesativarLojistaComSucesso() throws Exception {
+//        int id = 1;
+//        given(this.lojaRepository.findById(id)).willReturn(Optional.of(new Loja()));
+//
+//        LojaResponse response = this.service.desativarLojista(id);
+//
+//        assertNotNull(response);
+//        Assertions.assertFalse(response.getEnabled());
+//        Assertions.assertNull(response.getUserNameAtivacao());
+//        Assertions.assertNull(response.getDtAtivacao());
+//    }
 
-        LojaResponse response = this.service.desativarLojista(id);
-
-        assertNotNull(response);
-        Assertions.assertFalse(response.getEnabled());
-        Assertions.assertNull(response.getUserNameAtivacao());
-        Assertions.assertNull(response.getDtAtivacao());
-    }
-
-    @Test
-    public void NaoDeveDesativarLojistaQuandoNaoEncontrarNaBase() throws Exception {
-        int id = 1;
-        given(this.lojaRepository.findById(id)).willReturn(Optional.empty());
-
-        Assertions.assertThrowsExactly(LojaException.class, () -> {
-            LojaResponse response = this.service.desativarLojista(id);
-        });
-    }
+//    @Test
+//    public void NaoDeveDesativarLojistaQuandoNaoEncontrarNaBase() throws Exception {
+//        int id = 1;
+//        given(this.lojaRepository.findById(id)).willReturn(Optional.empty());
+//
+//        Assertions.assertThrowsExactly(LojaException.class, () -> {
+//            LojaResponse response = this.service.desativarLojista(id);
+//        });
+//    }
 
     @Test
     public void DeveAtualizarDadosLojistaComSucesso() throws Exception {

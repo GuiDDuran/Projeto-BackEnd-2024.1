@@ -152,54 +152,60 @@ public class Loja {
         loja.setNumMaxProduto(request.getNumMaxProduto());
         loja.setAbaProdAdd(request.getAbaProdAdd());
 
-        DadoBancario dadoBancario = loja.dadosBancarios.getFirst();
+        if(loja.dadosBancarios.size() > 0){
+            DadoBancario dadoBancario = loja.dadosBancarios.getFirst();
 
-        if(request.getTipoConta().equals("CC")){
-            dadoBancario.setTipoConta(TipoConta.CONTA_CORRENTE);
-        }
-        else if (request.getTipoConta().equals("CP")){
-            dadoBancario.setTipoConta(TipoConta.CONTA_POUPANCA);
-        }
-        else if (request.getTipoConta().equals("CI")){
-            dadoBancario.setTipoConta(TipoConta.CONTA_INVESTIMENTO);
-        }
-        else{
-            throw new LojaException("tipoConta", "Tipo de conta inválido, valores válidos: CC, CP, CI");
-        }
-        dadoBancario.setNomeBanco(request.getNomeBanco());
-        dadoBancario.setAgencia(request.getAgencia());
-        dadoBancario.setConta(request.getConta());
-        dadoBancario.setCodigoBanco(request.getCodigoBanco());
-
-        Endereco endereco = loja.getEnderecos().getFirst();
-
-        if(request.getTipoEndereco().equals("Residencial")){
-            endereco.setTipoEndereco(TipoEndereco.RESIDENCIAL);
-        }
-        else if (request.getTipoEndereco().equals("Comercial")){
-            endereco.setTipoEndereco(TipoEndereco.COMERCIAL);
-        }
-        else{
-            throw new LojaException("tipoEndereco", "Tipo de endereço inválido, valores válidos: Residencial, Comercial");
+            if(request.getTipoConta().equals("CC")){
+                dadoBancario.setTipoConta(TipoConta.CONTA_CORRENTE);
+            }
+            else if (request.getTipoConta().equals("CP")){
+                dadoBancario.setTipoConta(TipoConta.CONTA_POUPANCA);
+            }
+            else if (request.getTipoConta().equals("CI")){
+                dadoBancario.setTipoConta(TipoConta.CONTA_INVESTIMENTO);
+            }
+            else{
+                throw new LojaException("tipoConta", "Tipo de conta inválido, valores válidos: CC, CP, CI");
+            }
+            dadoBancario.setNomeBanco(request.getNomeBanco());
+            dadoBancario.setAgencia(request.getAgencia());
+            dadoBancario.setConta(request.getConta());
+            dadoBancario.setCodigoBanco(request.getCodigoBanco());
         }
 
-        endereco.setCep(request.getCep());
-        endereco.setLogradouro(request.getLogradouro());
-        endereco.setComplemento(request.getComplemento());
-        endereco.setBairro(request.getBairro());
-        endereco.setCidade(request.getCidade());
-        endereco.setEstado(request.getEstado());
-        endereco.setPais(request.getPais());
-        endereco.setDescricao(request.getDescricao());
+        if (loja.getEnderecos().size() > 0){
+            Endereco endereco = loja.getEnderecos().getFirst();
 
-        PessoaFisica pessoaFisica = loja.getPessoasFisicas().getFirst();
+            if(request.getTipoEndereco().equals("Residencial")){
+                endereco.setTipoEndereco(TipoEndereco.RESIDENCIAL);
+            }
+            else if (request.getTipoEndereco().equals("Comercial")){
+                endereco.setTipoEndereco(TipoEndereco.COMERCIAL);
+            }
+            else{
+                throw new LojaException("tipoEndereco", "Tipo de endereço inválido, valores válidos: Residencial, Comercial");
+            }
 
-        pessoaFisica.setNomePessoaFisica(request.getNomePessoaFisica());
-        pessoaFisica.setSobrenomePessoaFisica(request.getSobrenomePessoaFisica());
-        pessoaFisica.setCpfPessoaFisica(request.getCpfPessoaFisica());
-        pessoaFisica.setTelefonePessoaFisica(request.getTelefonePessoaFisica());
-        pessoaFisica.setEmailPessoaFisica(request.getEmailPessoaFisica());
+            endereco.setCep(request.getCep());
+            endereco.setLogradouro(request.getLogradouro());
+            endereco.setComplemento(request.getComplemento());
+            endereco.setBairro(request.getBairro());
+            endereco.setCidade(request.getCidade());
+            endereco.setEstado(request.getEstado());
+            endereco.setPais(request.getPais());
+            endereco.setDescricao(request.getDescricao());
+        }
 
+
+        if (loja.getPessoasFisicas().size() > 0){
+            PessoaFisica pessoaFisica = loja.getPessoasFisicas().getFirst();
+
+            pessoaFisica.setNomePessoaFisica(request.getNomePessoaFisica());
+            pessoaFisica.setSobrenomePessoaFisica(request.getSobrenomePessoaFisica());
+            pessoaFisica.setCpfPessoaFisica(request.getCpfPessoaFisica());
+            pessoaFisica.setTelefonePessoaFisica(request.getTelefonePessoaFisica());
+            pessoaFisica.setEmailPessoaFisica(request.getEmailPessoaFisica());
+        }
         return loja;
     }
 

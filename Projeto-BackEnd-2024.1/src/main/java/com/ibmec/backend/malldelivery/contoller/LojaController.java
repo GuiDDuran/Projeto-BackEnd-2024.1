@@ -50,11 +50,11 @@ public class LojaController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PatchMapping("desabilitar/{id}")
-    public ResponseEntity<LojaResponse> desativarLojista(@PathVariable int id) throws LojaException {
-        LojaResponse response = this.lojaService.desativarLojista(id);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+//    @PatchMapping("desabilitar/{id}")
+//    public ResponseEntity<LojaResponse> desativarLojista(@PathVariable int id) throws LojaException {
+//        LojaResponse response = this.lojaService.desativarLojista(id);
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
     @PutMapping("{id}")
     public ResponseEntity<LojaResponse> atualizarDadosLojista(@PathVariable int id, @RequestBody @Valid LojaRequest request) throws LojaException{
