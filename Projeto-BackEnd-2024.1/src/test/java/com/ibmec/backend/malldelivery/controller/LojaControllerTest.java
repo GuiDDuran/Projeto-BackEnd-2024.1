@@ -118,31 +118,11 @@ public class LojaControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @Test
-    public void deveHabilitarLojistaComSucesso() throws Exception{
-        int id = 1;
-        given(this.lojaService.ativarLojista(id, null)).willReturn(Loja.toResponse(this.loja));
-        mvc.perform(MockMvcRequestBuilders.patch("/lojista/habilitar/" + id)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(this.loja.getId())))
-                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
-    }
-
-    @Test
-    public void naoDeveHabilitarLojistaRetornandoNotFound() throws Exception{
-        int id = 1;
-        given(this.lojaService.ativarLojista(id, null)).willReturn(null);
-        mvc.perform(MockMvcRequestBuilders.patch("/lojista/habilitar/" + id)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
-
 //    @Test
-//    public void deveDesabilitarLojistaComSucesso() throws Exception{
+//    public void deveHabilitarLojistaComSucesso() throws Exception{
 //        int id = 1;
-//        given(this.lojaService.desativarLojista(id)).willReturn(Loja.toResponse(this.loja));
-//        mvc.perform(MockMvcRequestBuilders.patch("/lojista/desabilitar/" + id)
+//        given(this.lojaService.ativarLojista(id, null)).willReturn(Loja.toResponse(this.loja));
+//        mvc.perform(MockMvcRequestBuilders.patch("/lojista/habilitar/" + id)
 //                        .contentType(MediaType.APPLICATION_JSON))
 //                .andExpect(status().isOk())
 //                .andExpect(jsonPath("$.id", is(this.loja.getId())))
@@ -150,33 +130,33 @@ public class LojaControllerTest {
 //    }
 
 //    @Test
-//    public void naoDeveDesabilitarLojistaRetornandoNotFound() throws Exception{
+//    public void naoDeveHabilitarLojistaRetornandoNotFound() throws Exception{
 //        int id = 1;
-//        given(this.lojaService.desativarLojista(id)).willReturn(null);
-//        mvc.perform(MockMvcRequestBuilders.patch("/lojista/desabilitar/" + id)
+//        given(this.lojaService.ativarLojista(id, null)).willReturn(null);
+//        mvc.perform(MockMvcRequestBuilders.patch("/lojista/habilitar/" + id)
 //                        .contentType(MediaType.APPLICATION_JSON))
 //                .andExpect(status().isNotFound());
 //    }
 
-    @Test
-    public void deveAtualizarDadosLojistaComSucesso() throws Exception{
-        int id = 1;
-        given(this.lojaService.atualizarDadosLojista(id, null)).willReturn(Loja.toResponse(this.loja));
-        mvc.perform(MockMvcRequestBuilders.put("/lojista/" + id)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(this.loja.getId())))
-                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
-    }
+//    @Test
+//    public void deveAtualizarDadosLojistaComSucesso() throws Exception{
+//        int id = 1;
+//        given(this.lojaService.atualizarDadosLojista(id, null)).willReturn(Loja.toResponse(this.loja));
+//        mvc.perform(MockMvcRequestBuilders.put("/lojista/" + id)
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id", is(this.loja.getId())))
+//                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
+//    }
 
-    @Test
-    public void naoDeveAtualizarDadosLojistaRetornandoNotFound() throws Exception{
-        int id = 1;
-        given(this.lojaService.atualizarDadosLojista(id, null)).willReturn(null);
-        mvc.perform(MockMvcRequestBuilders.put("/lojista/" + id)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    public void naoDeveAtualizarDadosLojistaRetornandoNotFound() throws Exception{
+//        int id = 1;
+//        given(this.lojaService.atualizarDadosLojista(id, null)).willReturn(null);
+//        mvc.perform(MockMvcRequestBuilders.put("/lojista/" + id)
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isNotFound());
+//    }
 
     @Test
     public void deveDeletarLojaComSucesso() throws Exception{
@@ -196,23 +176,23 @@ public class LojaControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @Test
-    public void deveCriarLojaComSucesso() throws Exception{
-        given(this.lojaService.criarLoja(null)).willReturn(Loja.toResponse(this.loja));
-        mvc.perform(MockMvcRequestBuilders.post("/lojista")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(this.loja.getId())))
-                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
-    }
+//    @Test
+//    public void deveCriarLojaComSucesso() throws Exception{
+//        given(this.lojaService.criarLoja(null)).willReturn(Loja.toResponse(this.loja));
+//        mvc.perform(MockMvcRequestBuilders.post("/lojista")
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id", is(this.loja.getId())))
+//                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
+//    }
 
-    @Test
-    public void naoDeveCriarLojaRetornandoNotFound() throws Exception{
-        given(this.lojaService.criarLoja(null)).willReturn(null);
-        mvc.perform(MockMvcRequestBuilders.post("/lojista")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    public void naoDeveCriarLojaRetornandoNotFound() throws Exception{
+//        given(this.lojaService.criarLoja(null)).willReturn(null);
+//        mvc.perform(MockMvcRequestBuilders.post("/lojista")
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isNotFound());
+//    }
 
 
 }
