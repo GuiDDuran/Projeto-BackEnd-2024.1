@@ -152,7 +152,7 @@ public class Loja {
         loja.setNumMaxProduto(request.getNumMaxProduto());
         loja.setAbaProdAdd(request.getAbaProdAdd());
 
-        if(loja.dadosBancarios.size() > 0){
+        if(!loja.getDadosBancarios().isEmpty()){
             DadoBancario dadoBancario = loja.dadosBancarios.getFirst();
 
             if(request.getTipoConta().equals("CC")){
@@ -173,7 +173,7 @@ public class Loja {
             dadoBancario.setCodigoBanco(request.getCodigoBanco());
         }
 
-        if (loja.getEnderecos().size() > 0){
+        if (!loja.getEnderecos().isEmpty()){
             Endereco endereco = loja.getEnderecos().getFirst();
 
             if(request.getTipoEndereco().equals("Residencial")){
@@ -197,7 +197,7 @@ public class Loja {
         }
 
 
-        if (loja.getPessoasFisicas().size() > 0){
+        if (!loja.getPessoasFisicas().isEmpty()){
             PessoaFisica pessoaFisica = loja.getPessoasFisicas().getFirst();
 
             pessoaFisica.setNomePessoaFisica(request.getNomePessoaFisica());
