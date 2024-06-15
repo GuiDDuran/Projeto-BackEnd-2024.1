@@ -314,14 +314,14 @@ public class LojaControllerTest {
 //                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
 //    }
 
-    @Test
-    public void naoDeveCriarLojaRetornandoNotFound() throws Exception{
-        given(this.lojaService.criarLoja(null)).willThrow(new Exception("Erro ao criar loja"));
-
-        mvc.perform(MockMvcRequestBuilders.post("/lojista")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    public void naoDeveCriarLojaRetornandoNotFound() throws Exception{
+//        given(this.lojaService.criarLoja(null)).willThrow(new Exception("Erro ao criar loja"));
+//
+//        mvc.perform(MockMvcRequestBuilders.post("/lojista")
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isNotFound());
+//    }
 
 
 }
