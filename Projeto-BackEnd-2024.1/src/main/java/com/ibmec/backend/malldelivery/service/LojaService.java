@@ -90,18 +90,6 @@ public class LojaService {
         return Loja.toResponse(loja);
     }
 
-//    public LojaResponse desativarLojista(int id) throws LojaException{
-//        Optional<Loja> optLoja = this.lojaRepository.findById(id);
-//        if (optLoja.isEmpty()) {
-//            throw new LojaException("id", "Identificador da loja não encontrado");
-//        }
-//        Loja loja = optLoja.get();
-//        loja.setEnabled(Boolean.FALSE);
-//        loja.setDtAtivacao(null);
-//        loja.setUserNameAtivacao(null);
-//        this.lojaRepository.save(loja);
-//        return Loja.toResponse(loja);
-//    }
 
     public LojaResponse atualizarDadosLojista(int id, LojaRequest request) throws LojaException{
         Optional<Loja> optLoja = this.lojaRepository.findById(id);
@@ -110,17 +98,17 @@ public class LojaService {
         }
         Loja loja = Loja.fromRequest(optLoja.get(), request);
 
-        if (loja.getEnderecos().size() > 0){
+        if (!loja.getEnderecos().isEmpty()){
             Endereco endereco = loja.getEnderecos().getFirst();
             this.enderecoRepository.save(endereco);
         }
 
-        if (loja.getDadosBancarios().size() > 0){
+        if (!loja.getDadosBancarios().isEmpty()){
             DadoBancario dadoBancario = loja.getDadosBancarios().getFirst();
             this.dadoBancarioRepository.save(dadoBancario);
         }
 
-        if (loja.getPessoasFisicas().size() > 0){
+        if (!loja.getPessoasFisicas().isEmpty()){
             PessoaFisica pessoaFisica = loja.getPessoasFisicas().getFirst();
             this.pessoaFisicaRepository.save(pessoaFisica);
         }

@@ -1,4 +1,4 @@
-package com.ibmec.backend.malldelivery.contoller;
+package com.ibmec.backend.malldelivery.controller;
 
 import com.ibmec.backend.malldelivery.exception.LojaException;
 import com.ibmec.backend.malldelivery.request.LojaAtivacaoRequest;
@@ -19,10 +19,12 @@ public class LojaController {
     private LojaService lojaService;
     @PostMapping
     public ResponseEntity<LojaResponse> criarloja(@RequestBody @Valid LojaRequest request) throws Exception {
-
-        LojaResponse response = this.lojaService.criarLoja(request);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        try{
+            LojaResponse response = this.lojaService.criarLoja(request);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("{id}")
@@ -46,20 +48,22 @@ public class LojaController {
 
     @PatchMapping("habilitar/{id}")
     public ResponseEntity<LojaResponse> ativarLojista(@PathVariable int id, @RequestBody @Valid LojaAtivacaoRequest request) throws LojaException {
-        LojaResponse response = this.lojaService.ativarLojista(id, request);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        try{
+            LojaResponse response = this.lojaService.ativarLojista(id, request);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (LojaException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
-
-//    @PatchMapping("desabilitar/{id}")
-//    public ResponseEntity<LojaResponse> desativarLojista(@PathVariable int id) throws LojaException {
-//        LojaResponse response = this.lojaService.desativarLojista(id);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
 
     @PutMapping("{id}")
     public ResponseEntity<LojaResponse> atualizarDadosLojista(@PathVariable int id, @RequestBody @Valid LojaRequest request) throws LojaException{
-        LojaResponse response = this.lojaService.atualizarDadosLojista(id, request);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        try{
+            LojaResponse response = this.lojaService.atualizarDadosLojista(id, request);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (LojaException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("{id}")
