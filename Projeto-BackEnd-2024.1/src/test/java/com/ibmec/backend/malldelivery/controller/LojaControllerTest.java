@@ -156,7 +156,7 @@ public class LojaControllerTest {
 
         LojaRequest lojaRequest = new LojaRequest();
         lojaRequest.setNome("Nova Loja");
-        lojaRequest.setCnpj("99.999.999/9999-98");
+        lojaRequest.setCnpj("99.999.999/9999-97");
         lojaRequest.setTelefone("(99)99999-9998");
         lojaRequest.setEmail("abc@gmail.com");
         lojaRequest.setBanner("novo_banner");
