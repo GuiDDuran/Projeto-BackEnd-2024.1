@@ -108,15 +108,6 @@ public class Loja {
         loja.getDadosBancarios().add(dadoBancario);
 
         Endereco endereco = new Endereco();
-        if(request.getTipoEndereco().equals("Residencial")){
-            endereco.setTipoEndereco(TipoEndereco.RESIDENCIAL);
-        }
-        else if (request.getTipoEndereco().equals("Comercial")){
-            endereco.setTipoEndereco(TipoEndereco.COMERCIAL);
-        }
-        else{
-            throw new LojaException("tipoEndereco", "Tipo de endereço inválido");
-        }
         endereco.setCep(request.getCep());
         endereco.setLogradouro(request.getLogradouro());
         endereco.setComplemento(request.getComplemento());
@@ -175,16 +166,6 @@ public class Loja {
 
         if (!loja.getEnderecos().isEmpty()){
             Endereco endereco = loja.getEnderecos().getFirst();
-
-            if(request.getTipoEndereco().equals("Residencial")){
-                endereco.setTipoEndereco(TipoEndereco.RESIDENCIAL);
-            }
-            else if (request.getTipoEndereco().equals("Comercial")){
-                endereco.setTipoEndereco(TipoEndereco.COMERCIAL);
-            }
-            else{
-                throw new LojaException("tipoEndereco", "Tipo de endereço inválido, valores válidos: Residencial, Comercial");
-            }
 
             endereco.setCep(request.getCep());
             endereco.setLogradouro(request.getLogradouro());
@@ -246,7 +227,6 @@ public class Loja {
             response.setEstado(loja.getEnderecos().getFirst().getEstado());
             response.setPais(loja.getEnderecos().getFirst().getPais());
             response.setDescricao(loja.getEnderecos().getFirst().getDescricao());
-            response.setTipoEndereco(loja.getEnderecos().getFirst().getTipoEndereco().toString());
         }
 
         if (loja.getPessoasFisicas().size() > 0){

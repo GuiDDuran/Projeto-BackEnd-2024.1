@@ -61,7 +61,6 @@ public class LojaControllerTest {
         endereco.setEstado("Estado 1");
         endereco.setPais("Pais 1");
         endereco.setDescricao("Descricao 1");
-        endereco.setTipoEndereco(TipoEndereco.RESIDENCIAL);
         loja.getEnderecos().add(endereco);
 
         DadoBancario dadoBancario = new DadoBancario();
@@ -178,7 +177,6 @@ public class LojaControllerTest {
         lojaRequest.setEstado("Novo Estado");
         lojaRequest.setComplemento("Novo Complemento");
         lojaRequest.setDescricao("Nova Descrição");
-        lojaRequest.setTipoEndereco("COMERCIAL");
         lojaRequest.setNomePessoaFisica("João");
         lojaRequest.setSobrenomePessoaFisica("Silva");
         lojaRequest.setEmailPessoaFisica("joao@gmail.com");
@@ -217,7 +215,6 @@ public class LojaControllerTest {
         lojaRequest.setPais("Brasil");
         lojaRequest.setEstado("SP");
         lojaRequest.setComplemento("Complemento");
-        lojaRequest.setTipoEndereco("COMERCIAL");
         lojaRequest.setNomePessoaFisica("Teste");
         lojaRequest.setSobrenomePessoaFisica("Testando");
         lojaRequest.setEmailPessoaFisica("testando@test.com");
@@ -276,7 +273,6 @@ public class LojaControllerTest {
         lojaRequest.setEstado("Novo Estado");
         lojaRequest.setComplemento("Novo Complemento");
         lojaRequest.setDescricao("Nova Descrição");
-        lojaRequest.setTipoEndereco("COMERCIAL");
         lojaRequest.setNomePessoaFisica("João");
         lojaRequest.setSobrenomePessoaFisica("Silva");
         lojaRequest.setEmailPessoaFisica("zeca@gmail.com");
@@ -318,7 +314,6 @@ public class LojaControllerTest {
         lojaRequest.setEstado("Novo Estado");
         lojaRequest.setComplemento("Novo Complemento");
         lojaRequest.setDescricao("Nova Descrição");
-        lojaRequest.setTipoEndereco("COMERCIAL");
         lojaRequest.setNomePessoaFisica("João");
         lojaRequest.setSobrenomePessoaFisica("Silva");
         lojaRequest.setEmailPessoaFisica("zeca@gmail.com");

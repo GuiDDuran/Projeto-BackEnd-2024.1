@@ -59,7 +59,6 @@ public class LojaServiceTest {
         request.setCidade("Cidade 1");
         request.setEstado("Estado 1");
         request.setPais("Pais 1");
-        request.setTipoEndereco("Residencial");
         request.setDescricao("Descricao 1");
 
         request.setNomePessoaFisica("Guilherme");
@@ -141,29 +140,6 @@ public class LojaServiceTest {
             LojaResponse response = this.service.ativarLojista(id, request);
         });
     }
-
-//    @Test
-//    public void DeveDesativarLojistaComSucesso() throws Exception {
-//        int id = 1;
-//        given(this.lojaRepository.findById(id)).willReturn(Optional.of(new Loja()));
-//
-//        LojaResponse response = this.service.desativarLojista(id);
-//
-//        assertNotNull(response);
-//        Assertions.assertFalse(response.getEnabled());
-//        Assertions.assertNull(response.getUserNameAtivacao());
-//        Assertions.assertNull(response.getDtAtivacao());
-//    }
-
-//    @Test
-//    public void NaoDeveDesativarLojistaQuandoNaoEncontrarNaBase() throws Exception {
-//        int id = 1;
-//        given(this.lojaRepository.findById(id)).willReturn(Optional.empty());
-//
-//        Assertions.assertThrowsExactly(LojaException.class, () -> {
-//            LojaResponse response = this.service.desativarLojista(id);
-//        });
-//    }
 
     @Test
     public void DeveAtualizarDadosLojistaComSucesso() throws Exception {

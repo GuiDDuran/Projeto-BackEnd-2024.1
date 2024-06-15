@@ -31,7 +31,6 @@ public class LojaResponse {
     private String estado;
     private String complemento;
     private String descricao;
-    private String tipoEndereco;
     private String nomePessoaFisica;
     private String sobrenomePessoaFisica;
     private String emailPessoaFisica;

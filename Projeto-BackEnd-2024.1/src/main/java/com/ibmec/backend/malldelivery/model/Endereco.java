@@ -33,7 +33,4 @@ public class Endereco {
 
     @Column
     private String descricao;
-
-    @Column
-    private TipoEndereco tipoEndereco;
 }

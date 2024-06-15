@@ -79,9 +79,6 @@ public class LojaRequest {
 
     private String descricao;
 
-    @NotBlank(message = "O campo tipo de endereço é obrigatório")
-    private String tipoEndereco;
-
     @NotBlank(message = "O campo nome da pessoa física é obrigatório")
     private String nomePessoaFisica;
 
