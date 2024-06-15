@@ -151,62 +151,54 @@ public class LojaControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-//    @Test
-//    public void deveAtualizarDadosLojistaComSucesso() throws Exception{
-//        int id = 1;
-//
-//        LojaRequest lojaRequest = new LojaRequest();
-//        lojaRequest.setNome("Nova Loja");
-//        lojaRequest.setCnpj("99.999.999/9999-98");
-//        lojaRequest.setTelefone("(99)99999-9998");
-//        lojaRequest.setEmail("nova.loja@gmail.com");
-//        lojaRequest.setBanner("novo_banner");
-//        lojaRequest.setPerfil("novo_perfil");
-//        lojaRequest.setUrlFacebook("nova_facebook");
-//        lojaRequest.setUrlInstagram("nova_instagram");
-//        lojaRequest.setUrlTwitter("nova_twitter");
-//        lojaRequest.setNomeBanco("Banco do Brasil");
-//        lojaRequest.setAgencia("8888");
-//        lojaRequest.setConta("88888-8");
-//        lojaRequest.setCodigoBanco("888");
-//        lojaRequest.setTipoConta("CP");
-//        lojaRequest.setLogradouro("Nova Rua");
-//        lojaRequest.setBairro("Novo Bairro");
-//        lojaRequest.setCidade("Nova Cidade");
-//        lojaRequest.setCep("88888-888");
-//        lojaRequest.setPais("Novo País");
-//        lojaRequest.setEstado("Novo Estado");
-//        lojaRequest.setComplemento("Novo Complemento");
-//        lojaRequest.setDescricao("Nova Descrição");
-//        lojaRequest.setTipoEndereco("COMERCIAL");
-//        lojaRequest.setNomePessoaFisica("João");
-//        lojaRequest.setSobrenomePessoaFisica("Silva");
-//        lojaRequest.setEmailPessoaFisica("joao.silva@gmail.com");
-//        lojaRequest.setTelefonePessoaFisica("(88)88888-8888");
-//        lojaRequest.setCpfPessoaFisica("888.888.888-88");
-//
-//        MvcResult result = mvc.perform(MockMvcRequestBuilders.put("/lojista/" + id)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(new ObjectMapper().writeValueAsString(lojaRequest)))
-//                .andExpect(status().isOk())
-//                .andReturn();
-//
-//        String jsonResponse = result.getResponse().getContentAsString();
-//        System.out.println("Response: " + jsonResponse);
-//
-//        mvc.perform(MockMvcRequestBuilders.get("/lojista/" + id)
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.nome", is("Nova Loja")))
-//                .andExpect(jsonPath("$.email", is("nova.loja@gmail.com")));
-//    }
+    @Test
+    public void deveAtualizarDadosLojistaComSucesso() throws Exception{
+        int id = 1;
+
+        LojaRequest lojaRequest = new LojaRequest();
+        lojaRequest.setNome("Nova Loja");
+        lojaRequest.setCnpj("99.999.999/9999-98");
+        lojaRequest.setTelefone("(99)99999-9998");
+        lojaRequest.setEmail("abc@gmail.com");
+        lojaRequest.setBanner("novo_banner");
+        lojaRequest.setPerfil("novo_perfil");
+        lojaRequest.setUrlFacebook("nova_facebook");
+        lojaRequest.setUrlInstagram("nova_instagram");
+        lojaRequest.setUrlTwitter("nova_twitter");
+        lojaRequest.setNomeBanco("Banco do Brasil");
+        lojaRequest.setAgencia("8888");
+        lojaRequest.setConta("88888-8");
+        lojaRequest.setCodigoBanco("888");
+        lojaRequest.setTipoConta("CP");
+        lojaRequest.setLogradouro("Nova Rua");
+        lojaRequest.setBairro("Novo Bairro");
+        lojaRequest.setCidade("Nova Cidade");
+        lojaRequest.setCep("88888-888");
+        lojaRequest.setPais("Novo País");
+        lojaRequest.setEstado("Novo Estado");
+        lojaRequest.setComplemento("Novo Complemento");
+        lojaRequest.setDescricao("Nova Descrição");
+        lojaRequest.setTipoEndereco("COMERCIAL");
+        lojaRequest.setNomePessoaFisica("João");
+        lojaRequest.setSobrenomePessoaFisica("Silva");
+        lojaRequest.setEmailPessoaFisica("joao@gmail.com");
+        lojaRequest.setTelefonePessoaFisica("(88)88888-8888");
+        lojaRequest.setCpfPessoaFisica("888.888.888-88");
+
+        given(this.lojaService.atualizarDadosLojista(id, lojaRequest)).willReturn(Loja.toResponse(this.loja));
+        mvc.perform(MockMvcRequestBuilders.put("/lojista/" + id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(lojaRequest)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(this.loja.getId())))
+                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
+    }
 
     @Test
     public void naoDeveAtualizarDadosLojistaRetornandoNotFound() throws Exception{
         int id = 1;
 
         LojaRequest lojaRequest = new LojaRequest();
-        // Preencha o lojaRequest com valores válidos ou mínimos necessários
         lojaRequest.setNome("Test Loja");
         lojaRequest.setEmail("test@loja.com");
         lojaRequest.setTelefone("(11)99999-9999");
@@ -259,69 +251,85 @@ public class LojaControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-//    @Test
-//    public void deveCriarLojaComSucesso() throws Exception{
-//        LojaRequest lojaRequest = new LojaRequest();
-//        lojaRequest.setNome("Nova Loja");
-//        lojaRequest.setEmail("nova.loja@gmail.com");
-//        lojaRequest.setTelefone("(99)99999-9999");
-//        lojaRequest.setCnpj("99.999.999/9999-98");
-//        lojaRequest.setBanner("novo_banner");
-//        lojaRequest.setPerfil("novo_perfil");
-//        lojaRequest.setUrlFacebook("nova_facebook");
-//        lojaRequest.setUrlInstagram("nova_instagram");
-//        lojaRequest.setUrlTwitter("nova_twitter");
-//        lojaRequest.setNomeBanco("Banco do Brasil");
-//        lojaRequest.setAgencia("8888");
-//        lojaRequest.setConta("88888-8");
-//        lojaRequest.setCodigoBanco("888");
-//        lojaRequest.setTipoConta("CP");
-//        lojaRequest.setLogradouro("Nova Rua");
-//        lojaRequest.setBairro("Novo Bairro");
-//        lojaRequest.setCidade("Nova Cidade");
-//        lojaRequest.setCep("88888-888");
-//        lojaRequest.setPais("Novo País");
-//        lojaRequest.setEstado("Novo Estado");
-//        lojaRequest.setComplemento("Novo Complemento");
-//        lojaRequest.setDescricao("Nova Descrição");
-//        lojaRequest.setTipoEndereco("COMERCIAL");
-//        lojaRequest.setNomePessoaFisica("João");
-//        lojaRequest.setSobrenomePessoaFisica("Silva");
-//        lojaRequest.setEmailPessoaFisica("email@gmail.com");
-//        lojaRequest.setTelefonePessoaFisica("(88)88888-8888");
-//        lojaRequest.setCpfPessoaFisica("888.888.888-88");
-//
-//        // Configurando o mock para o serviço retornar a resposta esperada
-//        given(this.lojaService.criarLoja(Mockito.eq(lojaRequest)))
-//                .willReturn(Loja.toResponse(this.loja));
-//
-//        // Executando a requisição POST para criar a loja
-//        MvcResult result = mvc.perform(MockMvcRequestBuilders.post("/lojista")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(lojaRequest)))
-//                .andExpect(status().isOk())
-//                .andReturn();
-//
-//        // Verificando se os atributos da loja retornada estão corretos
-//        String jsonResponse = result.getResponse().getContentAsString();
-//        System.out.println("Response: " + jsonResponse);
-//
-//        // Verificando se a loja foi criada corretamente acessando pelo ID
-//        mvc.perform(MockMvcRequestBuilders.get("/lojista/" + this.loja.getId())
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.id", is(this.loja.getId())))
-//                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
-//    }
+    @Test
+    public void deveCriarLojaComSucesso() throws Exception{
+        LojaRequest lojaRequest = new LojaRequest();
+        lojaRequest.setNome("Nova Loja");
+        lojaRequest.setEmail("abcde@gmail.com");
+        lojaRequest.setTelefone("(99)99999-9999");
+        lojaRequest.setCnpj("99.999.999/9999-98");
+        lojaRequest.setBanner("novo_banner");
+        lojaRequest.setPerfil("novo_perfil");
+        lojaRequest.setUrlFacebook("nova_facebook");
+        lojaRequest.setUrlInstagram("nova_instagram");
+        lojaRequest.setUrlTwitter("nova_twitter");
+        lojaRequest.setNomeBanco("Banco do Brasil");
+        lojaRequest.setAgencia("8888");
+        lojaRequest.setConta("88888-8");
+        lojaRequest.setCodigoBanco("888");
+        lojaRequest.setTipoConta("CP");
+        lojaRequest.setLogradouro("Nova Rua");
+        lojaRequest.setBairro("Novo Bairro");
+        lojaRequest.setCidade("Nova Cidade");
+        lojaRequest.setCep("88888-888");
+        lojaRequest.setPais("Novo País");
+        lojaRequest.setEstado("Novo Estado");
+        lojaRequest.setComplemento("Novo Complemento");
+        lojaRequest.setDescricao("Nova Descrição");
+        lojaRequest.setTipoEndereco("COMERCIAL");
+        lojaRequest.setNomePessoaFisica("João");
+        lojaRequest.setSobrenomePessoaFisica("Silva");
+        lojaRequest.setEmailPessoaFisica("zeca@gmail.com");
+        lojaRequest.setTelefonePessoaFisica("(88)88888-8888");
+        lojaRequest.setCpfPessoaFisica("888.888.888-88");
 
-//    @Test
-//    public void naoDeveCriarLojaRetornandoNotFound() throws Exception{
-//        given(this.lojaService.criarLoja(null)).willThrow(new Exception("Erro ao criar loja"));
-//
-//        mvc.perform(MockMvcRequestBuilders.post("/lojista")
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isNotFound());
-//    }
+        given(this.lojaService.criarLoja(lojaRequest)).willReturn(Loja.toResponse(this.loja));
 
+        mvc.perform(MockMvcRequestBuilders.post("/lojista")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(lojaRequest)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(this.loja.getId())))
+                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
+    }
 
+    @Test
+    public void naoDeveCriarLojaComCnpjJaCadastrado() throws Exception{
+        LojaRequest lojaRequest = new LojaRequest();
+        lojaRequest.setNome("Nova Loja");
+        lojaRequest.setEmail("abcde@gmail.com");
+        lojaRequest.setTelefone("(99)99999-9999");
+        lojaRequest.setCnpj("99.999.999/9999-98");
+        lojaRequest.setBanner("novo_banner");
+        lojaRequest.setPerfil("novo_perfil");
+        lojaRequest.setUrlFacebook("nova_facebook");
+        lojaRequest.setUrlInstagram("nova_instagram");
+        lojaRequest.setUrlTwitter("nova_twitter");
+        lojaRequest.setNomeBanco("Banco do Brasil");
+        lojaRequest.setAgencia("8888");
+        lojaRequest.setConta("88888-8");
+        lojaRequest.setCodigoBanco("888");
+        lojaRequest.setTipoConta("CP");
+        lojaRequest.setLogradouro("Nova Rua");
+        lojaRequest.setBairro("Novo Bairro");
+        lojaRequest.setCidade("Nova Cidade");
+        lojaRequest.setCep("88888-888");
+        lojaRequest.setPais("Novo País");
+        lojaRequest.setEstado("Novo Estado");
+        lojaRequest.setComplemento("Novo Complemento");
+        lojaRequest.setDescricao("Nova Descrição");
+        lojaRequest.setTipoEndereco("COMERCIAL");
+        lojaRequest.setNomePessoaFisica("João");
+        lojaRequest.setSobrenomePessoaFisica("Silva");
+        lojaRequest.setEmailPessoaFisica("zeca@gmail.com");
+        lojaRequest.setTelefonePessoaFisica("(88)88888-8888");
+        lojaRequest.setCpfPessoaFisica("888.888.888-88");
+
+        given(this.lojaService.criarLoja(lojaRequest)).willThrow(new LojaException("cnpj", "CNPJ já cadastrado"));
+
+        mvc.perform(MockMvcRequestBuilders.post("/lojista")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(lojaRequest)))
+                .andExpect(status().isNotFound());
+    }
 }
