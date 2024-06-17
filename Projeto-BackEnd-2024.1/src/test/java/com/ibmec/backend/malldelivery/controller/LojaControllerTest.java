@@ -11,21 +11,27 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 
 import static org.mockito.BDDMockito.given;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+@SpringBootTest
 @AutoConfigureMockMvc
-@WebMvcTest(controllers = LojaController.class)
+//@WebMvcTest(controllers = LojaController.class)
 public class LojaControllerTest {
     @MockBean
     private LojaService lojaService;
@@ -35,6 +41,9 @@ public class LojaControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private WebApplicationContext context;
 
     private Loja loja;
 
@@ -77,10 +86,10 @@ public class LojaControllerTest {
         pessoaFisica.setCpfPessoaFisica("999.999.999-99");
         pessoaFisica.setTelefonePessoaFisica("(99)99999-9999");
         pessoaFisica.setEmailPessoaFisica("guilherme.d.gea@gmail.com");
-
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void deveConsultarLojistaPorIdComSucesso() throws Exception{
         int id = 1;
         given(this.lojaService.obterLojistaPorId(id)).willReturn(Loja.toResponse(this.loja));
@@ -92,6 +101,7 @@ public class LojaControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void deveConsultarLojistaPorIdRetornandoNotFound() throws Exception{
         int id = 1;
         given(this.lojaService.obterLojistaPorId(id)).willReturn(null);
@@ -101,6 +111,7 @@ public class LojaControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void deveConsultarLojistaPorCnpjComSucesso() throws Exception{
         String cnpj = "99.999.999/9999-99";
         given(this.lojaService.obterLojistaPorCnpj(cnpj)).willReturn(Loja.toResponse(this.loja));
@@ -112,6 +123,7 @@ public class LojaControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void deveConsultarLojistaPorCnpjRetornandoNotFound() throws Exception{
         String cnpj = "99.999.999/9999-99";
         given(this.lojaService.obterLojistaPorCnpj(cnpj)).willReturn(null);
@@ -121,6 +133,7 @@ public class LojaControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void deveHabilitarLojistaComSucesso() throws Exception{
         int id = 1;
         LojaAtivacaoRequest ativacaoRequest = new LojaAtivacaoRequest();
@@ -137,6 +150,7 @@ public class LojaControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void naoDeveHabilitarLojistaRetornandoNotFound() throws Exception{
         int id = 1;
         LojaAtivacaoRequest ativacaoRequest = new LojaAtivacaoRequest();
@@ -151,12 +165,13 @@ public class LojaControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void deveAtualizarDadosLojistaComSucesso() throws Exception{
         int id = 1;
 
         LojaRequest lojaRequest = new LojaRequest();
         lojaRequest.setNome("Nova Loja");
-        lojaRequest.setCnpj("99.999.999/9999-98");
+        lojaRequest.setCnpj("99.999.999/9999-97");
         lojaRequest.setTelefone("(99)99999-9998");
         lojaRequest.setEmail("abc@gmail.com");
         lojaRequest.setBanner("novo_banner");
@@ -193,6 +208,7 @@ public class LojaControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void naoDeveAtualizarDadosLojistaRetornandoNotFound() throws Exception{
         int id = 1;
 
@@ -231,6 +247,7 @@ public class LojaControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void deveDeletarLojaComSucesso() throws Exception{
         int id = 1;
         given(this.lojaService.deletarLoja(id)).willReturn(Loja.toResponse(this.loja));
@@ -240,6 +257,7 @@ public class LojaControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void naoDeveDeletarLojaRetornandoNotFound() throws Exception{
         int id = 1;
         given(this.lojaService.deletarLoja(id)).willReturn(null);
@@ -249,6 +267,7 @@ public class LojaControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void deveCriarLojaComSucesso() throws Exception{
         LojaRequest lojaRequest = new LojaRequest();
         lojaRequest.setNome("Nova Loja");
@@ -290,6 +309,7 @@ public class LojaControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void naoDeveCriarLojaComCnpjJaCadastrado() throws Exception{
         LojaRequest lojaRequest = new LojaRequest();
         lojaRequest.setNome("Nova Loja");
