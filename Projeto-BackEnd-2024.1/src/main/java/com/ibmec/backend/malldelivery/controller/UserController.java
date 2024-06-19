@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/usuario")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -28,7 +28,7 @@ public class UserController {
     @Autowired
     private JwtTokenService jwtTokenService;
 
-    @PostMapping("/create")
+    @PostMapping("/criar")
     public ResponseEntity<User> create(@RequestBody @Valid UserRequest request) throws LojaException {
         User newUser = this.userService.create(request.getUsername(), request.getPassword(), request.getProfile_id());
         if (newUser == null) {
@@ -49,7 +49,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/get/all")
+    @GetMapping("/buscar/todos")
     public ResponseEntity<List<User>> getAll() {
         List<User> users = this.userService.getAll();
         if (users.isEmpty()) {
@@ -58,7 +58,7 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/get/byId/{id}")
+    @GetMapping("/buscar/{id}")
     public ResponseEntity<User> getById(@PathVariable int id) {
         User user = this.userService.getById(id);
         if (user == null) {

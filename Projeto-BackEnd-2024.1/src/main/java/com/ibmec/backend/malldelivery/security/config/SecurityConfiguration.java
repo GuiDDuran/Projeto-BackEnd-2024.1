@@ -24,14 +24,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfiguration {
     public static final String[] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
-            "/user/create",
-            "/user/login"
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/usuario/criar",
+            "/usuario/login"
     };
 
     public static final String[] ENDPOINTS_WITH_AUTHENTICATION_REQUIRED = {
-            "/user/get/all",
-            "/user/get/byId/**",
-            "/lojista/**",
+            "/usuario/buscar/**",
+            "/lojista/**"
     };
 
     @Bean
