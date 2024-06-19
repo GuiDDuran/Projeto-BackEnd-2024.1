@@ -36,12 +36,12 @@ public class LojaServiceTest {
     @BeforeEach
     public void setUp() {
         request = new LojaRequest();
-        request.setNome("Loja 1");
+        request.setNomeLoja("Loja 1");
         request.setCnpj("99.999.999/9999-99");
-        request.setTelefone("(99)99999-9999");
-        request.setEmail("guilherme.d.gea@gmail.com");
-        request.setBanner("banner");
-        request.setPerfil("perfil");
+        request.setTelefoneLoja("(99)99999-9999");
+        request.setEmailLoja("guilherme.d.gea@gmail.com");
+        request.setBannerLoja("banner");
+        request.setPerfilLoja("perfil");
         request.setUrlFacebook("facebook");
         request.setUrlInstagram("instagram");
         request.setUrlTwitter("twitter");
@@ -76,7 +76,7 @@ public class LojaServiceTest {
         LojaResponse response = this.service.criarLoja(request);
 
         assertNotNull(response);
-        assertEquals(response.getNome(), request.getNome());
+        assertEquals(response.getNomeLoja(), request.getNomeLoja());
         Assertions.assertFalse(response.getEnabled());
         assertNotNull(response.getDataCadastro());
     }
@@ -149,7 +149,7 @@ public class LojaServiceTest {
         LojaResponse response = this.service.atualizarDadosLojista(id, request);
 
         assertNotNull(response);
-        assertEquals(response.getNome(), request.getNome());
+        assertEquals(response.getNomeLoja(), request.getNomeLoja());
     }
 
     @Test

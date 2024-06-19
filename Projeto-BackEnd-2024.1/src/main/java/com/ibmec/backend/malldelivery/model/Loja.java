@@ -18,13 +18,13 @@ public class Loja {
     private int id;
 
     @Column
-    private String nome;
+    private String nomeLoja;
 
     @Column
-    private String email;
+    private String emailLoja;
 
     @Column
-    private String telefone;
+    private String telefoneLoja;
 
     @Column
     private String cnpj;
@@ -33,10 +33,10 @@ public class Loja {
     private LocalDateTime dataCadastro;
 
     @Column
-    private String banner;
+    private String bannerLoja;
 
     @Column
-    private String perfil;
+    private String perfilLoja;
 
     @Column
     private String urlFacebook;
@@ -76,12 +76,12 @@ public class Loja {
 
     public static Loja fromRequest(LojaRequest request) throws Exception {
         Loja loja = new Loja();
-        loja.setNome(request.getNome());
-        loja.setEmail(request.getEmail());
-        loja.setTelefone(request.getTelefone());
+        loja.setNomeLoja(request.getNomeLoja());
+        loja.setEmailLoja(request.getEmailLoja());
+        loja.setTelefoneLoja(request.getTelefoneLoja());
         loja.setCnpj(request.getCnpj());
-        loja.setBanner(request.getBanner());
-        loja.setPerfil(request.getPerfil());
+        loja.setBannerLoja(request.getBannerLoja());
+        loja.setPerfilLoja(request.getPerfilLoja());
         loja.setUrlFacebook(request.getUrlFacebook());
         loja.setUrlInstagram(request.getUrlInstagram());
         loja.setUrlTwitter(request.getUrlTwitter());
@@ -131,12 +131,12 @@ public class Loja {
 
     public static Loja fromRequest(Loja loja, LojaRequest request) throws LojaException {
 
-        loja.setNome(request.getNome());
-        loja.setEmail(request.getEmail());
-        loja.setTelefone(request.getTelefone());
+        loja.setNomeLoja(request.getNomeLoja());
+        loja.setEmailLoja(request.getEmailLoja());
+        loja.setTelefoneLoja(request.getTelefoneLoja());
         loja.setCnpj(request.getCnpj());
-        loja.setBanner(request.getBanner());
-        loja.setPerfil(request.getPerfil());
+        loja.setBannerLoja(request.getBannerLoja());
+        loja.setPerfilLoja(request.getPerfilLoja());
         loja.setUrlFacebook(request.getUrlFacebook());
         loja.setUrlInstagram(request.getUrlInstagram());
         loja.setUrlTwitter(request.getUrlTwitter());
@@ -193,12 +193,12 @@ public class Loja {
     public static LojaResponse toResponse(Loja loja){
         LojaResponse response = new LojaResponse();
 
-        response.setNome(loja.getNome());
-        response.setEmail(loja.getEmail());
-        response.setTelefone(loja.getTelefone());
+        response.setNomeLoja(loja.getNomeLoja());
+        response.setEmailLoja(loja.getEmailLoja());
+        response.setTelefoneLoja(loja.getTelefoneLoja());
         response.setCnpj(loja.getCnpj());
-        response.setBanner(loja.getBanner());
-        response.setPerfil(loja.getPerfil());
+        response.setBannerLoja(loja.getBannerLoja());
+        response.setPerfilLoja(loja.getPerfilLoja());
         response.setUrlFacebook(loja.getUrlFacebook());
         response.setUrlInstagram(loja.getUrlInstagram());
         response.setUrlTwitter(loja.getUrlTwitter());

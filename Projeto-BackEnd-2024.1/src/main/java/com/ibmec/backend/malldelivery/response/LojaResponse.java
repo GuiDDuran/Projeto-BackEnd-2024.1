@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 @Data
 public class LojaResponse {
     private int id;
-    private String nome;
-    private String email;
-    private String telefone;
+    private String nomeLoja;
+    private String emailLoja;
+    private String telefoneLoja;
     private String cnpj;
-    private String banner;
-    private String perfil;
+    private String bannerLoja;
+    private String perfilLoja;
     private String urlFacebook;
     private String urlInstagram;
     private String urlTwitter;
