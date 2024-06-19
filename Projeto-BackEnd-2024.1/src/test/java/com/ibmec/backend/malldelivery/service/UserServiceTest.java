@@ -1,5 +1,6 @@
 package com.ibmec.backend.malldelivery.service;
 
+import com.ibmec.backend.malldelivery.exception.LojaException;
 import com.ibmec.backend.malldelivery.model.Profile;
 import com.ibmec.backend.malldelivery.model.User;
 import com.ibmec.backend.malldelivery.repository.ProfileRepository;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.any;
@@ -74,20 +76,53 @@ public class UserServiceTest {
         Assertions.assertNull(userResponse);
     }
 
-//    @Test
-//    public void deveCriarUserComSucesso() {
-//        Profile profile = new Profile();
-//        profile.setId(1);
-//        profile.setName("ADMIN");
-//
-//        given(this.perfilRepository.findById(1)).willReturn(Optional.of(profile));
-//
-//        User user = this.service.create("teste", "teste", 1);
-//
-//        Assertions.assertNotNull(user);
-//        Assertions.assertEquals("teste", user.getUsername());
-//        Assertions.assertEquals("teste", user.getPassword());
-//        Assertions.assertEquals(1, user.getProfiles().size());
-//        Assertions.assertEquals("ADMIN", user.getProfiles().get(0).getName());
-//    }
+    @Test
+    public void deveCriarUserComSucesso() throws Exception {
+        Profile profile = new Profile();
+        profile.setId(1);
+        profile.setName("ADMIN");
+
+        given(this.perfilRepository.findById(1)).willReturn(Optional.of(profile));
+
+        User user = this.service.create("teste", "teste", 1);
+
+        Assertions.assertNotNull(user);
+        Assertions.assertEquals("teste", user.getUsername());
+        Assertions.assertEquals("teste", user.getPassword());
+        Assertions.assertEquals(1, user.getProfiles().size());
+        Assertions.assertEquals("ADMIN", user.getProfiles().get(0).getName());
+    }
+
+    @Test
+    public void deveRetornarNullSeNaoAcharPerfilAoCriarUsuario() throws Exception{
+        given(this.perfilRepository.findById(1)).willReturn(Optional.empty());
+
+        try {
+            User user = this.service.create("teste", "teste", -1);
+        } catch (LojaException e) {
+            Assertions.assertEquals("Perfil não encontrado", e.getMessage());
+        }
+    }
+
+    @Test
+    public void deveListarTodosUsuariosComSucesso() {
+
+        given(this.userRepository.findAll()).willReturn(List.of(user));
+
+        List<User> users = this.service.getAll();
+
+        Assertions.assertNotNull(users);
+        Assertions.assertEquals(1, users.size());
+    }
+
+    @Test
+    public void deveRetornarNullSeNaoAcharUsuarioAoListarTodos() {
+        given(this.userRepository.findAll()).willReturn(List.of());
+
+        List<User> users = this.service.getAll();
+
+        Assertions.assertNotNull(users);
+        Assertions.assertEquals(0, users.size());
+    }
+
 }
