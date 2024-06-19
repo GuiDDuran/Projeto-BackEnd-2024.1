@@ -32,7 +32,7 @@ public class SecurityConfiguration {
 
     public static final String[] ENDPOINTS_WITH_AUTHENTICATION_REQUIRED = {
             "/usuario/buscar/**",
-            "/lojista/**"
+            "/loja/**"
     };
 
     @Bean
