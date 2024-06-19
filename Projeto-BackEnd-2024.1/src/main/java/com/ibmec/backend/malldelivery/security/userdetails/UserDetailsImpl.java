@@ -12,7 +12,7 @@ import java.util.Collection;
 
 @Data
 public class UserDetailsImpl implements UserDetails {
-    private User user;
+    private transient User user;
 
     public UserDetailsImpl(User user){
         this.user = user;
