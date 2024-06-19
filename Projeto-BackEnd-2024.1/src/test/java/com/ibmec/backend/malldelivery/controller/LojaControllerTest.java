@@ -51,12 +51,12 @@ public class LojaControllerTest {
     public void setUp() {
         loja = new Loja();
         loja.setId(1);
-        loja.setNome("Loja 1");
+        loja.setNomeLoja("Loja 1");
         loja.setCnpj("99.999.999/9999-99");
-        loja.setTelefone("(99)99999-9999");
-        loja.setEmail("guilherme.d.gea@gmail.com");
-        loja.setBanner("banner");
-        loja.setPerfil("perfil");
+        loja.setTelefoneLoja("(99)99999-9999");
+        loja.setEmailLoja("guilherme.d.gea@gmail.com");
+        loja.setBannerLoja("banner");
+        loja.setPerfilLoja("perfil");
         loja.setUrlFacebook("facebook");
         loja.setUrlInstagram("instagram");
         loja.setUrlTwitter("twitter");
@@ -97,7 +97,7 @@ public class LojaControllerTest {
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(id)))
-                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
+                .andExpect(jsonPath("$.nomeLoja", is(this.loja.getNomeLoja())));
     }
 
     @Test
@@ -119,7 +119,7 @@ public class LojaControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(this.loja.getId())))
-                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
+                .andExpect(jsonPath("$.nomeLoja", is(this.loja.getNomeLoja())));
     }
 
     @Test
@@ -146,7 +146,7 @@ public class LojaControllerTest {
                         .content(objectMapper.writeValueAsString(ativacaoRequest)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(this.loja.getId())))
-                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
+                .andExpect(jsonPath("$.nomeLoja", is(this.loja.getNomeLoja())));
     }
 
     @Test
@@ -170,12 +170,12 @@ public class LojaControllerTest {
         int id = 1;
 
         LojaRequest lojaRequest = new LojaRequest();
-        lojaRequest.setNome("Nova Loja");
+        lojaRequest.setNomeLoja("Nova Loja");
         lojaRequest.setCnpj("99.999.999/9999-97");
-        lojaRequest.setTelefone("(99)99999-9998");
-        lojaRequest.setEmail("abc@gmail.com");
-        lojaRequest.setBanner("novo_banner");
-        lojaRequest.setPerfil("novo_perfil");
+        lojaRequest.setTelefoneLoja("(99)99999-9998");
+        lojaRequest.setEmailLoja("abc@gmail.com");
+        lojaRequest.setBannerLoja("novo_banner");
+        lojaRequest.setPerfilLoja("novo_perfil");
         lojaRequest.setUrlFacebook("nova_facebook");
         lojaRequest.setUrlInstagram("nova_instagram");
         lojaRequest.setUrlTwitter("nova_twitter");
@@ -204,7 +204,7 @@ public class LojaControllerTest {
                         .content(objectMapper.writeValueAsString(lojaRequest)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(this.loja.getId())))
-                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
+                .andExpect(jsonPath("$.nomeLoja", is(this.loja.getNomeLoja())));
     }
 
     @Test
@@ -213,12 +213,12 @@ public class LojaControllerTest {
         int id = 1;
 
         LojaRequest lojaRequest = new LojaRequest();
-        lojaRequest.setNome("Test Loja");
-        lojaRequest.setEmail("test@loja.com");
-        lojaRequest.setTelefone("(11)99999-9999");
+        lojaRequest.setNomeLoja("Test Loja");
+        lojaRequest.setEmailLoja("test@loja.com");
+        lojaRequest.setTelefoneLoja("(11)99999-9999");
         lojaRequest.setCnpj("00.000.000/0000-00");
-        lojaRequest.setBanner("banner.png");
-        lojaRequest.setPerfil("perfil");
+        lojaRequest.setBannerLoja("banner.png");
+        lojaRequest.setPerfilLoja("perfil");
         lojaRequest.setNomeBanco("Banco Teste");
         lojaRequest.setAgencia("0000");
         lojaRequest.setConta("00000-0");
@@ -270,12 +270,12 @@ public class LojaControllerTest {
     @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void deveCriarLojaComSucesso() throws Exception{
         LojaRequest lojaRequest = new LojaRequest();
-        lojaRequest.setNome("Nova Loja");
-        lojaRequest.setEmail("abcde@gmail.com");
-        lojaRequest.setTelefone("(99)99999-9999");
+        lojaRequest.setNomeLoja("Nova Loja");
+        lojaRequest.setEmailLoja("abcde@gmail.com");
+        lojaRequest.setTelefoneLoja("(99)99999-9999");
         lojaRequest.setCnpj("99.999.999/9999-98");
-        lojaRequest.setBanner("novo_banner");
-        lojaRequest.setPerfil("novo_perfil");
+        lojaRequest.setBannerLoja("novo_banner");
+        lojaRequest.setPerfilLoja("novo_perfil");
         lojaRequest.setUrlFacebook("nova_facebook");
         lojaRequest.setUrlInstagram("nova_instagram");
         lojaRequest.setUrlTwitter("nova_twitter");
@@ -305,19 +305,19 @@ public class LojaControllerTest {
                         .content(objectMapper.writeValueAsString(lojaRequest)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(this.loja.getId())))
-                .andExpect(jsonPath("$.nome", is(this.loja.getNome())));
+                .andExpect(jsonPath("$.nomeLoja", is(this.loja.getNomeLoja())));
     }
 
     @Test
     @WithMockUser(username = "admin", password = "pwd", roles = "ADMIN")
     public void naoDeveCriarLojaComCnpjJaCadastrado() throws Exception{
         LojaRequest lojaRequest = new LojaRequest();
-        lojaRequest.setNome("Nova Loja");
-        lojaRequest.setEmail("abcde@gmail.com");
-        lojaRequest.setTelefone("(99)99999-9999");
+        lojaRequest.setNomeLoja("Nova Loja");
+        lojaRequest.setEmailLoja("abcde@gmail.com");
+        lojaRequest.setTelefoneLoja("(99)99999-9999");
         lojaRequest.setCnpj("99.999.999/9999-98");
-        lojaRequest.setBanner("novo_banner");
-        lojaRequest.setPerfil("novo_perfil");
+        lojaRequest.setBannerLoja("novo_banner");
+        lojaRequest.setPerfilLoja("novo_perfil");
         lojaRequest.setUrlFacebook("nova_facebook");
         lojaRequest.setUrlInstagram("nova_instagram");
         lojaRequest.setUrlTwitter("nova_twitter");

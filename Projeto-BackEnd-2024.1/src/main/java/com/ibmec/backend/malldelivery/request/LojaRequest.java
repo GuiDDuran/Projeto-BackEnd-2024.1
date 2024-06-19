@@ -7,25 +7,25 @@ import lombok.Data;
 @Data
 public class LojaRequest {
     @NotBlank(message = "O campo nome é obrigatório")
-    private String nome;
+    private String nomeLoja;
 
     @NotBlank(message = "O campo email é obrigatório")
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "O campo email deve ser um email válido")
-    private String email;
+    private String emailLoja;
 
     @NotBlank(message = "O campo telefone é obrigatório")
     @Pattern(regexp = "^\\([0-9]{2}\\)[0-9]{5}-[0-9]{4}$", message = "O campo telefone deve seguir o padrão (99)99999-9999")
-    private String telefone;
+    private String telefoneLoja;
 
     @NotBlank(message = "O campo cnpj é obrigatório")
     @Pattern(regexp = "^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}-\\d{2}$", message = "O campo cnpj deve seguir o padrão 99.999.999/9999-99")
     private String cnpj;
 
     @NotBlank(message = "O campo banner é obrigatório")
-    private String banner;
+    private String bannerLoja;
 
     @NotBlank(message = "O campo perfil é obrigatório")
-    private String perfil;
+    private String perfilLoja;
 
     private String urlFacebook;
 
