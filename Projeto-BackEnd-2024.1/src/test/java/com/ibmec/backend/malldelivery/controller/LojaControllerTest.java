@@ -93,7 +93,7 @@ public class LojaControllerTest {
     public void deveConsultarLojistaPorIdComSucesso() throws Exception{
         int id = 1;
         given(this.lojaService.obterLojistaPorId(id)).willReturn(Loja.toResponse(this.loja));
-        mvc.perform(MockMvcRequestBuilders.get("/lojista/" + id)
+        mvc.perform(MockMvcRequestBuilders.get("/loja/" + id)
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(id)))
@@ -105,7 +105,7 @@ public class LojaControllerTest {
     public void deveConsultarLojistaPorIdRetornandoNotFound() throws Exception{
         int id = 1;
         given(this.lojaService.obterLojistaPorId(id)).willReturn(null);
-        mvc.perform(MockMvcRequestBuilders.get("/lojista/" + id)
+        mvc.perform(MockMvcRequestBuilders.get("/loja/" + id)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -115,7 +115,7 @@ public class LojaControllerTest {
     public void deveConsultarLojistaPorCnpjComSucesso() throws Exception{
         String cnpj = "99.999.999/9999-99";
         given(this.lojaService.obterLojistaPorCnpj(cnpj)).willReturn(Loja.toResponse(this.loja));
-        mvc.perform(MockMvcRequestBuilders.get("/lojista/busca?cnpj=" + cnpj)
+        mvc.perform(MockMvcRequestBuilders.get("/loja/busca?cnpj=" + cnpj)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(this.loja.getId())))
@@ -127,7 +127,7 @@ public class LojaControllerTest {
     public void deveConsultarLojistaPorCnpjRetornandoNotFound() throws Exception{
         String cnpj = "99.999.999/9999-99";
         given(this.lojaService.obterLojistaPorCnpj(cnpj)).willReturn(null);
-        mvc.perform(MockMvcRequestBuilders.get("/lojista/busca?cnpj=" + cnpj)
+        mvc.perform(MockMvcRequestBuilders.get("/loja/busca?cnpj=" + cnpj)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -141,7 +141,7 @@ public class LojaControllerTest {
         ativacaoRequest.setUserNameAtivacao("User");
 
         given(this.lojaService.ativarLojista(id, ativacaoRequest)).willReturn(Loja.toResponse(this.loja));
-        mvc.perform(MockMvcRequestBuilders.patch("/lojista/habilitar/" + id)
+        mvc.perform(MockMvcRequestBuilders.patch("/loja/habilitar/" + id)
                 .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(ativacaoRequest)))
                 .andExpect(status().isOk())
@@ -158,7 +158,7 @@ public class LojaControllerTest {
         ativacaoRequest.setUserNameAtivacao("User");
 
         given(this.lojaService.ativarLojista(id, ativacaoRequest)).willThrow(new LojaException("id", "Identificador da loja não encontrado"));
-        mvc.perform(MockMvcRequestBuilders.patch("/lojista/habilitar/" + id)
+        mvc.perform(MockMvcRequestBuilders.patch("/loja/habilitar/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(ativacaoRequest)))
                 .andExpect(status().isNotFound());
@@ -199,7 +199,7 @@ public class LojaControllerTest {
         lojaRequest.setCpfPessoaFisica("888.888.888-88");
 
         given(this.lojaService.atualizarDadosLojista(id, lojaRequest)).willReturn(Loja.toResponse(this.loja));
-        mvc.perform(MockMvcRequestBuilders.put("/lojista/" + id)
+        mvc.perform(MockMvcRequestBuilders.put("/loja/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(lojaRequest)))
                 .andExpect(status().isOk())
@@ -240,7 +240,7 @@ public class LojaControllerTest {
         given(this.lojaService.atualizarDadosLojista(id, lojaRequest))
                 .willThrow(new LojaException("id", "Identificador da loja não encontrado"));
 
-        mvc.perform(MockMvcRequestBuilders.put("/lojista/" + id)
+        mvc.perform(MockMvcRequestBuilders.put("/loja/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(lojaRequest)))
                 .andExpect(status().isNotFound());
@@ -251,7 +251,7 @@ public class LojaControllerTest {
     public void deveDeletarLojaComSucesso() throws Exception{
         int id = 1;
         given(this.lojaService.deletarLoja(id)).willReturn(Loja.toResponse(this.loja));
-        mvc.perform(MockMvcRequestBuilders.delete("/lojista/" + id)
+        mvc.perform(MockMvcRequestBuilders.delete("/loja/" + id)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -261,7 +261,7 @@ public class LojaControllerTest {
     public void naoDeveDeletarLojaRetornandoNotFound() throws Exception{
         int id = 1;
         given(this.lojaService.deletarLoja(id)).willReturn(null);
-        mvc.perform(MockMvcRequestBuilders.delete("/lojista/" + id)
+        mvc.perform(MockMvcRequestBuilders.delete("/loja/" + id)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -300,7 +300,7 @@ public class LojaControllerTest {
 
         given(this.lojaService.criarLoja(lojaRequest)).willReturn(Loja.toResponse(this.loja));
 
-        mvc.perform(MockMvcRequestBuilders.post("/lojista")
+        mvc.perform(MockMvcRequestBuilders.post("/loja")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(lojaRequest)))
                 .andExpect(status().isOk())
@@ -342,7 +342,7 @@ public class LojaControllerTest {
 
         given(this.lojaService.criarLoja(lojaRequest)).willThrow(new LojaException("cnpj", "CNPJ já cadastrado"));
 
-        mvc.perform(MockMvcRequestBuilders.post("/lojista")
+        mvc.perform(MockMvcRequestBuilders.post("/loja")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(lojaRequest)))
                 .andExpect(status().isNotFound());
