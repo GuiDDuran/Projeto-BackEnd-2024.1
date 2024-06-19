@@ -34,6 +34,8 @@ public class LojaService {
     @Autowired
     private PessoaFisicaRepository pessoaFisicaRepository;
 
+    public String erro = "Identificador da loja não encontrado";
+
     public LojaResponse criarLoja(LojaRequest request) throws Exception{
         Loja loja = Loja.fromRequest(request);
 
@@ -80,7 +82,7 @@ public class LojaService {
     public LojaResponse ativarLojista(int id, LojaAtivacaoRequest request) throws LojaException{
         Optional<Loja> optLoja = this.lojaRepository.findById(id);
         if (optLoja.isEmpty()) {
-            throw new LojaException("id", "Identificador da loja não encontrado");
+            throw new LojaException("id", erro);
         }
         Loja loja = optLoja.get();
         loja.setEnabled(request.getEnabled());
@@ -94,7 +96,7 @@ public class LojaService {
     public LojaResponse atualizarDadosLojista(int id, LojaRequest request) throws LojaException{
         Optional<Loja> optLoja = this.lojaRepository.findById(id);
         if (optLoja.isEmpty()) {
-            throw new LojaException("id", "Identificador da loja não encontrado");
+            throw new LojaException("id", erro);
         }
         Loja loja = Loja.fromRequest(optLoja.get(), request);
 
@@ -122,7 +124,7 @@ public class LojaService {
     public LojaResponse deletarLoja(int id) throws LojaException{
         Optional<Loja> optLoja = this.lojaRepository.findById(id);
         if (optLoja.isEmpty()) {
-            throw new LojaException("id", "Identificador da loja não encontrado");
+            throw new LojaException("id", erro);
         }
 
         Loja loja = optLoja.get();

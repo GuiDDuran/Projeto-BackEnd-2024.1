@@ -65,6 +65,8 @@ public class UserServiceTest {
         given(this.userRepository.findById(1)).willReturn(Optional.of(user));
 
         User userResponse = this.service.getById(1);
+
+        Assertions.assertNotNull(userResponse);
     }
 
     @Test

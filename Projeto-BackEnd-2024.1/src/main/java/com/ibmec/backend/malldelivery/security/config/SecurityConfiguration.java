@@ -40,11 +40,12 @@ public class SecurityConfiguration {
         return new UserDetailsServiceImpl();
     }
 
-    @Autowired
-    private UserAuthenticationFilter userAuthenticationFilter;
+
+//    @Autowired
+//    private UserAuthenticationFilter userAuthenticationFilter;
 
     @Bean
-    public SecurityFilterChain securityFilter(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilter(HttpSecurity httpSecurity, @Autowired UserAuthenticationFilter userAuthenticationFilter) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((opt) -> {
