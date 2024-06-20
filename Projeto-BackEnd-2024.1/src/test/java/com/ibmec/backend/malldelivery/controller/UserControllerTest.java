@@ -114,7 +114,7 @@ public class UserControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/usuario/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNoContent());
     }
 
     @Test

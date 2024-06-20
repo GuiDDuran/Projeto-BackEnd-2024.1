@@ -41,7 +41,7 @@ public class UserController {
     public ResponseEntity<TokenResponse> login(@RequestBody @Valid UserRequest request) throws LojaException {
         User user = this.userService.getUserByUsernameAndPassword(request.getUsername(), request.getPassword());
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         String jwtToken = jwtTokenService.generateToken(new UserDetailsImpl(user));
         TokenResponse response = new TokenResponse();

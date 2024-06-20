@@ -34,16 +34,16 @@ public class UserServiceTest {
     @BeforeEach
     public void Setup() {
         user = new User();
-        user.setUsername("teste");
-        user.setPassword("teste");
+        user.setUsername("admin");
+        user.setPassword("pwd");
     }
 
     @Test
     public void deveAcharUserByUsernameAndPassword() {
 
-        given(this.userRepository.findByUsernameAndPassword("teste", "teste")).willReturn(Optional.of(user));
+        given(this.userRepository.findByUsernameAndPassword("admin", "pwd")).willReturn(Optional.of(user));
 
-        User userResponse = this.service.getUserByUsernameAndPassword("teste", "teste");
+        User userResponse = this.service.getUserByUsernameAndPassword("admin", "pwd");
 
         Assertions.assertNotNull(userResponse);
         Assertions.assertEquals(user.getUsername(), userResponse.getUsername());
@@ -52,9 +52,9 @@ public class UserServiceTest {
 
     @Test
     public void deveRetornarNullSeNaoAcharUserByUsernameAndPassword() {
-        given(this.userRepository.findByUsernameAndPassword("teste", "teste")).willReturn(Optional.empty());
+        given(this.userRepository.findByUsernameAndPassword("admin", "pwd")).willReturn(Optional.empty());
 
-        User userResponse = this.service.getUserByUsernameAndPassword("teste", "teste");
+        User userResponse = this.service.getUserByUsernameAndPassword("admin", "pwd");
 
         Assertions.assertNull(userResponse);
     }
@@ -86,11 +86,11 @@ public class UserServiceTest {
 
         given(this.perfilRepository.findById(1)).willReturn(Optional.of(profile));
 
-        User user = this.service.create("teste", "teste", 1);
+        User user = this.service.create("admin", "pwd", 1);
 
         Assertions.assertNotNull(user);
-        Assertions.assertEquals("teste", user.getUsername());
-        Assertions.assertEquals("teste", user.getPassword());
+        Assertions.assertEquals("admin", user.getUsername());
+        Assertions.assertEquals("pwd", user.getPassword());
         Assertions.assertEquals(1, user.getProfiles().size());
         Assertions.assertEquals("ADMIN", user.getProfiles().get(0).getName());
     }
@@ -100,7 +100,7 @@ public class UserServiceTest {
         given(this.perfilRepository.findById(1)).willReturn(Optional.empty());
 
         try {
-            User user = this.service.create("teste", "teste", -1);
+            User user = this.service.create("admin", "pwd", -1);
         } catch (LojaException e) {
             Assertions.assertEquals("Perfil não encontrado", e.getMessage());
         }

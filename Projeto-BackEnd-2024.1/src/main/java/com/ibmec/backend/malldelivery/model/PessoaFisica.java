@@ -28,7 +28,4 @@ public class PessoaFisica {
     @Column(name = "cpf")
     private String cpfPessoaFisica;
 
-//    @OneToMany
-//    @JoinColumn(name = "id_pessoa_fisica", referencedColumnName = "id")
-//    private List<Loja> lojas = new ArrayList<>();
 }
