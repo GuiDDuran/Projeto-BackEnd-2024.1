@@ -19,12 +19,11 @@ public class LojaController {
     private LojaService lojaService;
     @PostMapping
     public ResponseEntity<LojaResponse> criarloja(@RequestBody @Valid LojaRequest request) throws Exception {
-        try{
-            LojaResponse response = this.lojaService.criarLoja(request);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
+        LojaResponse response = this.lojaService.criarLoja(request);
+        if (response == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
@@ -48,22 +47,22 @@ public class LojaController {
 
     @PatchMapping("habilitar/{id}")
     public ResponseEntity<LojaResponse> ativarLojista(@PathVariable int id, @RequestBody @Valid LojaAtivacaoRequest request) throws LojaException {
-        try{
-            LojaResponse response = this.lojaService.ativarLojista(id, request);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (LojaException e) {
+
+        LojaResponse response = this.lojaService.ativarLojista(id, request);
+        if (response == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("{id}")
     public ResponseEntity<LojaResponse> atualizarDadosLojista(@PathVariable int id, @RequestBody @Valid LojaRequest request) throws LojaException{
-        try{
-            LojaResponse response = this.lojaService.atualizarDadosLojista(id, request);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (LojaException e) {
+
+        LojaResponse response = this.lojaService.atualizarDadosLojista(id, request);
+        if (response == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

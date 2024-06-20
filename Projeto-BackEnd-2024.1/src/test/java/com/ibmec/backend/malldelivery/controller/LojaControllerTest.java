@@ -157,7 +157,7 @@ public class LojaControllerTest {
         ativacaoRequest.setEnabled(true);
         ativacaoRequest.setUserNameAtivacao("User");
 
-        given(this.lojaService.ativarLojista(id, ativacaoRequest)).willThrow(new LojaException("id", "Identificador da loja não encontrado"));
+        given(this.lojaService.ativarLojista(id, ativacaoRequest)).willReturn(null);
         mvc.perform(MockMvcRequestBuilders.patch("/loja/habilitar/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(ativacaoRequest)))
@@ -238,7 +238,7 @@ public class LojaControllerTest {
         lojaRequest.setCpfPessoaFisica("000.000.000-00");
 
         given(this.lojaService.atualizarDadosLojista(id, lojaRequest))
-                .willThrow(new LojaException("id", "Identificador da loja não encontrado"));
+                .willReturn(null);
 
         mvc.perform(MockMvcRequestBuilders.put("/loja/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -340,7 +340,7 @@ public class LojaControllerTest {
         lojaRequest.setTelefonePessoaFisica("(88)88888-8888");
         lojaRequest.setCpfPessoaFisica("888.888.888-88");
 
-        given(this.lojaService.criarLoja(lojaRequest)).willThrow(new LojaException("cnpj", "CNPJ já cadastrado"));
+        given(this.lojaService.criarLoja(lojaRequest)).willReturn(null);
 
         mvc.perform(MockMvcRequestBuilders.post("/loja")
                         .contentType(MediaType.APPLICATION_JSON)
